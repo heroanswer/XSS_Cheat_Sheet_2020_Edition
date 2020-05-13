@@ -61,6 +61,14 @@ javascript:alert(1)
 '}alert(1)%0A{'
 \'}alert(1);{//
 ```
+**9.Javascript Injection - Quoteless (javscript注入-)**
+
+当输入的payload在同一行javascript代码中有多次反射时使用。<br>
+第一个payload适用于简单的javascript变量，第二个payload适用于非嵌套的javascript对象。 <br>
+```
+/alert(1)//\
+/alert(1)}//\
+```
 
 ## 致谢
 **英文议题作者：** <br>
