@@ -1,0 +1,2 @@
+# XSS_Cheat_Sheet_2020_Edition
+XSS漏洞模糊测试速查表 2020版
