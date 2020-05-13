@@ -48,6 +48,7 @@ javascript:alert(1)
 ## 致谢
 **英文议题作者：** <br>
 @brutelogic <br>
+<br>
 **中文翻译团队：**<br>
 @farmsec <br>
 @farmsec_alice <br>
