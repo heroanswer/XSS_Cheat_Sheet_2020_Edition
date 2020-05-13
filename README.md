@@ -22,5 +22,5 @@ xss漏洞模糊测试有效载荷的最佳集合 2020版 <br>
 ```
 **2.HTML Injection – Tag Block Breakout（HTML注入–标签闭合）** <br>
 当输入的payload，被插入到以下标签的内部时，使用以下标签：<br>
-`<title> <style> <script> <textarea> <noscript> <pre> <xmp> <iframe>` （</tag>为相应的html标签）。
+`<title> <style> <script> <textarea> <noscript> <pre> <xmp> <iframe>` （`</tag>`为相应的html标签）。
 
