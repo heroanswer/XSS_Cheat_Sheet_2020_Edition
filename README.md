@@ -44,9 +44,11 @@ javascript:alert(1)
 '-alert(1)-'
 '/alert(1)//
 ```
-
+**6.Javascript Injection - Escape Bypass (javascript注入-)**
 ## 致谢
+英文议题作者：
 @brutelogic <br>
+中文翻译团队：
 @farmsec <br>
 @farmsec_alice <br>
 @farmsec_lancet <br>
