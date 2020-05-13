@@ -38,9 +38,12 @@ xss漏洞模糊测试有效载荷的最佳集合 2020版 <br>
 ```
 javascript:alert(1)
 ```
+**5.**
 
 ## 致谢
 @brutelogic <br>
 @farmsec <br>
 @farmsec_alice <br>
+@farmsec_lancet <br>
 @farmsec_answer <br>
+
