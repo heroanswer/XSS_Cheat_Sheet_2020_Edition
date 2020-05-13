@@ -205,7 +205,7 @@ Notification.requestPermission(x=>{new(Notification)(1)})
 new(Notification)(1)
 ```
 **33.XSS in HTTP Header - Cached (HTTP请求头中-缓存xss)** <br>
-该payload用于使用MISS-MISS-HIT缓存方案（如果服务器端开启）在应用程序中测试存储XSS。 将<XSS>替换为相应的payload，并将TARGET替换为虚拟字符串， 触发相同的请求3次，以避免页面的实际缓存信息。<br>
+该payload用于使用MISS-MISS-HIT缓存方案（如果服务器端开启）在应用程序中测试存储XSS。 将XSS标签替换为相应的payload，并将TARGET替换为虚拟字符串， 触发相同的请求3次，以避免页面的实际缓存信息。<br>
 ```
 $ curl -H "Vulnerable_Header: <XSS>" TARGET/?dummy_string
 ```
