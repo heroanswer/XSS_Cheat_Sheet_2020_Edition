@@ -858,28 +858,16 @@ onmouseover=location=tagName+innerHTML+previousSibling.nodeValue>cript:`hoverme!
 字符也可以是URL或HTML编码的。 <br>
 Vector Scheme 1 (tag name + handler)
 ```
-<name [ ] handler [ ] = [ ] js [ ]>
-      %09         %09   %09    %09
-      %0A         %0A   %0A    %0A
-      %0C         %0C   %0B    %0B
-      %0D         %0D   %0C    %0C
-      %20         %20   %0D    %0D
-      %2F         %20   %20
-      /           %22   %22
-      +           %27   %27
-                  '     '
-                  "     "
-                  +     +
-                  
+pass 表格看附件
 ```
 Vector Scheme 2 (tag name + attribute + handler)
 
 ```
-pass
+pass 表格看附件
 ```
 Vector Scheme 3 (tag name + href|src|data|action|formaction)
 ```
-pass
+pass 表格看附件
 ```
 
 ## 致谢
