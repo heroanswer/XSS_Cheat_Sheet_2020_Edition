@@ -872,6 +872,15 @@ Vector Scheme 1 (tag name + handler)
                   +     +
                   
 ```
+Vector Scheme 2 (tag name + attribute + handler)
+
+```
+pass
+```
+Vector Scheme 3 (tag name + href|src|data|action|formaction)
+```
+pass
+```
 
 ## 致谢
 **英文议题作者：** <br>
