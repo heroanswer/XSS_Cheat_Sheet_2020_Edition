@@ -5,7 +5,6 @@
 该备忘清单可用于漏洞猎人，安全分析，渗透测试人员，根据应用的实际情况,测试不同的payload，并观察响应内容，查找web应用的跨站点脚本漏洞，共计100+条xss漏洞测试小技巧 <br>
 本备忘录翻译自国外的`XSS_Cheat_Sheet_2020_Edition.pdf`议题，源文件可在本项目内直接下载 <br>
 整理完毕的测试payload清单文件为:`xss_payload_list.txt` <br>
-github项目地址:https://github.com/heroanswer/XSS_Cheat_Sheet_2020_Edition <br>
 整理不易，少侠，留个小星星再走吧 (ฅ>ω<*ฅ)～
 
 ## 摘要
@@ -875,8 +874,5 @@ pass
 **英文议题作者：** <br>
 `@brutelogic `
 **中文翻译团队：**<br>
-`@farmsec `
-`@farmsec_answer `
-`@farmsec_alice `
-`@farmsec_lancet`
+`@answer `
 
