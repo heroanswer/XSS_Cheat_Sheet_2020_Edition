@@ -872,7 +872,7 @@ pass
 
 ## 致谢
 **英文议题作者：** <br>
-`@brutelogic `
+`@brutelogic ` <br>
 **中文翻译团队：**<br>
 `@answer `
 
